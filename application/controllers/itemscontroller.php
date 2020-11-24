@@ -5,7 +5,7 @@ class ItemsController extends Controller {
 	function view($id = null,$name = null) {
 	
 		$this->set('title',$name.' - My Todo List App');
-		$this->set('todo',$this->Item->select($id));
+		$this->set('titletodo',$this->Item->select($id));
 
 	}
 	

@@ -21,18 +21,19 @@ class Template {
     function render() {
 		extract($this->variables);
 
-			if (file_exists(ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'header.php')) {
-				include (ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'header.php');
+			if (file_exists(ROOT . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'header.php')) {
+				include (ROOT . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'header.php');
 			} else {
-				include (ROOT . DS . 'application' . DS . 'views' . DS . 'header.php');
+//				include (ROOT . DS . 'application' . DS . 'views' . DS . 'header.php');
 			}
 
+                 
         include (ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . $this->_action . '.php');		 
 
-			if (file_exists(ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'footer.php')) {
-				include (ROOT . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'footer.php');
+			if (file_exists(ROOT . DS . 'application' . DS . 'views' . DS . 'inc'. DS . 'footer.php')) {
+				include (ROOT . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'footer.php');
 			} else {
-				include (ROOT . DS . 'application' . DS . 'views' . DS . 'footer.php');
+//				include (ROOT . DS . 'application' . DS . 'views' . DS . 'footer.php');
 			}
     }
 

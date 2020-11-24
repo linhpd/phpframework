@@ -1,16 +1,14 @@
-<div><h2><strong><?php echo $product['Product']['name']?></strong>
-</div>
 
-<div><h2>Price: $<?php echo $product['Product']['price']?></h2>
+<h2><?php echo $product['Product']['Product_desc']?></h2>
 
-
-<?php if (!empty($product['Tag'])):?>
-<h2>Tags:</h2>
-
-<?php foreach ($product['Tag'] as $tags):?>
-<div class="tag">
-<?php echo $tags['Tag']['name']?>
-</div>
-<?php endforeach?>
-</div>
-<?php endif?>
+        <a class="big" href="../../../products/info/<?php echo $product['Product']['ProductID']?>">
+	<span class="Product">
+	Update this item
+	</span>
+	</a><br/>
+        
+	<a class="big" href="../../../products/delete/<?php echo $product['Product']['ProductID']?>">
+	<span class="Product">
+	Delete this item
+	</span>
+	</a><br/>
