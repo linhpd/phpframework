@@ -79,22 +79,15 @@ class UsersController extends Controller {
                     $this->User->register($fullname, $email, $img, $hashedPassword, $vkey);
                     Session::set('success', 'You can confirm now');
                     Session::set('email', $email);
-                    //sendCode($vkey, $email);
-                    //Redirect::to('users/confirm');
+                    $user = $this->User->login($email, $password);
+                    Session::set('user_id', $user->user_id);
+                    Email::sendCode($vkey, $email);
+                    Redirect::to('users/confirm');
                     exit();
-                } else {
-                    //$this->view('users.register', $data);
                 }
             }
-        } else {
-
-            //$this->view('users.register',$data);
         }
     }
-
-    /* >>>>>>>>>>>>>>>>>>>> */
-    #<--->    update  <--->#
-    /* <<<<<<<<<<<<<<<<<<<< */
 
     public function update($id) {
         Auth::userAuth();
@@ -133,23 +126,17 @@ class UsersController extends Controller {
 
                 if (empty($data['errEmail']) && empty($data['errName']) && empty($data['errPassword'])) {
                     $this->User->update($id, $fullname, $email, $hashedPassword);
-                    //Session::set('user_name',$fullname);
-                    //Session::set('success','Your Profile has been edited');
-                    //Redirect::to('users/profile');
+                    Session::set('user_name', $fullname);
+                    Session::set('success', 'Your Profile has been edited');
+                    Redirect::to('users/profile');
                 } else {
                     $this->set('user', $this->User->show($id));
-                    //$this->view('users.edit', $data);
                 }
             }
         } else {
             $this->set('user', $this->User->show($id));
-            //$this->view('users.edit', $data);
         }
     }
-
-    /* >>>>>>>>>>>>>>>>>>>> */
-    #<--->   login    <--->#
-    /* <<<<<<<<<<<<<<<<<<<< */
 
     public function login() {
         Auth::userGuest();
@@ -178,13 +165,17 @@ class UsersController extends Controller {
                 if (empty($error['errEmail']) && empty($error['errPassword'])) {
                     $user = $this->User->login($email, $password);
                     if ($user) {
+                        Session::set('user_id', $user->user_id);
+                        Session::set('email', $email);
+                        Session::set('user_name', $user->full_name);
+                        echo var_dump($_SESSION);
                         if ($this->User->notVerified($email)) {
-                            Session::set('email', $email);
                             Session::set('danger', "Verify Your account firstly <a href='" . URL . "/users/confirm'>Confirm Now</a>");
-                            $this->view('users.login', $data);
+                            $this->set('varified', false);
+                            Redirect::to('/users/confirm');
                         } else {
+                            Session::clear('email');
                             $this->cartModel = $this->model('Cart');
-                            Session::set('user_id', $user->user_id);
                             $cartItems = 0;
                             $carts = $this->cartModel->getAllCart();
                             if ($carts) {
@@ -198,19 +189,13 @@ class UsersController extends Controller {
                             Session::set('user_cart', $cartItems);
                             Session::set('user_name', $user->full_name);
                             Redirect::to('users/profile');
-                        };
+                        }
                     } else {
                         $error['errPassword'] = "Password Not Valid";
                         $this->set('errPassword', 'Password Not Valid');
-                        //$this->view('users.login', $data);
                     }
-                } else {
-
-                    //$this->view('users.login', $data);
                 }
             }
-        } else {
-            //$this->view('users.login', $data);
         }
     }
 
@@ -233,38 +218,36 @@ class UsersController extends Controller {
     public function avatar($id) {
 
         Auth::userAuth();
-        $data['title'] = 'Edit Avatar';
+        $this->set('title', 'Edit Avatar');
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['addAvatar']) {
 
             echo $pro_img = $_FILES['image']['name'];
             $pro_tmp = $_FILES['image']['tmp_name'];
             $pro_type = $_FILES['image']['type'];
             if (!empty($pro_img)) {
-                $uploaddir = dirname(ROOT) . '\public\uploads\\';
+                $uploaddir = ROOTDIR . '\public\uploads\\';
                 $pro_img = explode('.', $pro_img);
                 $pro_img_ext = $pro_img[1];
                 $pro_img = $pro_img[0] . time() . '.' . $pro_img[1];
 
                 if ($pro_img_ext != "jpg" && $pro_img_ext != "png" && $pro_img_ext != "jpeg" && $pro_img_ext != "gif") {
-                    $data['errImg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    $error['errImg'] = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    $this->set('errImg', "Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
                 }
             } else {
-                $data['errImg'] = 'You must choose an image';
+                $error['errImg'] = 'You must choose an image';
+                $this->set('errImg', 'You must choose an image');
             }
 
 
             if (empty($data['errImg'])) {
                 move_uploaded_file($pro_tmp, $uploaddir . $pro_img);
                 unlink($uploaddir . Session::name('user_img'));
-                $this->userModel->avatar($id, $pro_img);
+                $this->User->avatar($id, $pro_img);
                 Session::set('user_img', $pro_img);
                 Session::set('success', 'Your avatar has been uploaded successfully');
                 Redirect::to('users/profile');
-            } else {
-                $this->view('users.avatar', $data);
             }
-        } else {
-            $this->view('users.avatar', $data);
         }
     }
 
@@ -273,49 +256,62 @@ class UsersController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function confirm($v = null) {
-        Auth::userGuest();
-        $data['title'] = 'Confirm';
+
+        //Auth::userAuth();
+
+
+        $this->set('title', 'Confirm');
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($_POST['confirm']) {
                 $vkey = $_POST['vkey'];
                 $email = Session::name('email');
 
+                //echo $email;
                 if (empty($vkey)) {
-                    $data['errVkey'] = 'This Input Must Has Value.';
+                    $error['errVkey'] = 'This Input Must Has Value.';
+                    $this->set('errVkey', 'This Input Must Has Value.');
                 }
 
-                if (empty($data['errVkey'])) {
-                    $confirm = $this->userModel->selectVkey($email, $vkey);
-                    if ($confirm) {
-
+                if (empty($error['errVkey'])) {
+                    $this->set('user', $this->User->selectVkey($email, $vkey));
+                    $confirm = $this->User->selectVkey($email, $vkey);
+                    if ($confirm = $vkey) {
                         Session::set('success', 'Your account has been confirmed');
                         Session::clear('email');
-                        Redirect::to('users/login');
+//                        Session::set('user_id', $confirm->user_id);
+//                        Session::set('user_name', $confirm->full_name);
+//                        Session::set('user_img', $confirm->image);
+                        $this->User->confirm($email);
+                        Redirect::to('users/profile');
                     } else {
-                        $data = [
-                            'err' => '<div class="alert alert-danger">This code not correct</div>'
-                        ];
-                        $this->view('users.confirm', $data);
+//                        $data = [
+//                            'err' => '<div class="alert alert-danger">This code not correct</div>'
+//                        ];
+                        $this->set('err', '<div class="alert alert-danger">This code not correct</div>');
+                        //$this->view('users.confirm', $data);
                     }
                 } else {
-                    $this->view('users.confirm', $data);
+                    //$this->view('users.confirm', $data);
                 }
             }
         } elseif ($v != null && !empty($v)) {
             $vkey = $v;
             $email = Session::name('email');
-            $confirm = $this->userModel->selectVkey($email, $vkey);
+            $confirm = $this->User->selectVkey($email, $vkey);
+            
+            $this->set('user', $this->User->selectVkey($email, $vkey));
             if ($confirm) {
+                $this->User->confirm($email);
                 Session::set('success', 'Your account has been confirmed');
-                Session::set('user_id', $confirm->user_id);
-                Session::set('user_name', $confirm->full_name);
-                Session::set('user_img', $confirm->image);
+//                Session::set('user_id', $confirm->user_id);
+//                Session::set('user_name', $confirm->full_name);
+//                Session::set('user_img', $confirm->image);
                 Session::clear('email');
                 Redirect::to('users/profile');
             }
         } else {
             if (Session::name('email') != null && Session::name('email') != '') {
-                $this->view('users.confirm', $data);
+                //$this->view('users.confirm', $data);
             } else {
                 Redirect::to('users/login');
             }
@@ -328,7 +324,7 @@ class UsersController extends Controller {
 
     public function forgotPassword($g = null) {
         Auth::userGuest();
-        $data['title'] = 'Forgot Password';
+        $this->set('title', 'Forgot Password');
         $this->vkey = time();
         $this->vkey = md5($this->vkey);
         $vkey = $this->vkey = str_shuffle($this->vkey);
@@ -343,12 +339,12 @@ class UsersController extends Controller {
                     Session::set('success', 'please Check Your Email Inbox');
                     Redirect::to('users/forgotPassword');
                 } else {
-                    $data['err'] = '<div class="alert alert-danger">please Check Your Inputs</div>';
-                    $this->view('users.forgotPassword', $data);
+                    $this->set('err', '<div class="alert alert-danger">please Check Your Inputs</div>');
+                    //$this->view('users.forgotPassword', $data);
                 };
             }
         } else {
-            $this->view('users/forgotPassword', $data);
+            //$this->view('users/forgotPassword', $data);
         }
     }
 
@@ -358,13 +354,14 @@ class UsersController extends Controller {
 
     public function resetPassword($vkey) {
         Auth::userGuest();
-        $data['title'] = 'Reset Password';
+        $this->set('title', 'Reset Password');
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (isset($_POST['newPassword'])) {
                 $password = $_POST['password'];
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 if (strlen($password) == 0) {
-                    $data['errPassword'] = "Your Password Must Contain At Least 8 Characters!";
+                    $error['errPassword'] = "Your Password Must Contain At Least 8 Characters!";
+                    $this->set('errPassword', 'Your Password Must Contain At Least 8 Characters!');
                 }
                 // elseif(!preg_match("#[0-9]+#",$password)) {
                 //      $data['errPassword'] = "Your Password Must Contain At Least 1 Number!";
@@ -376,22 +373,22 @@ class UsersController extends Controller {
                 //      $data['errPassword'] = "Your Password Must Contain At Least 1 Lowercase Letter!";
                 // } 
 
-                if (empty($data['errPassword'])) {
-                    if ($this->userModel->resetP($vkey, $hashedPassword)) {
+                if (empty($error['errPassword'])) {
+                    if ($this->User->resetP($vkey, $hashedPassword)) {
                         sendpass($email, $vkey);
                         Session::set('danger', 'Please login with new password');
                         Redirect::to('users/login');
                     } else {
-                        $data['err'] = '<div class="alert alert-danger">please Check Your Inputs</div>';
-                        $this->view('users.resetPassword', $data);
+                        $this->set('err', '<div class="alert alert-danger">please Check Your Inputs</div>');
+                        //$this->view('users.resetPassword', $data);
                     };
                 } else {
-                    $this->view('users.resetPassword', $data);
+                    //$this->view('users.resetPassword', $data);
                 }
             }
         } else {
-            $data = ['vkey' => $vkey];
-            $this->view('users.resetPassword', $data);
+            $this->set('vkey', $vkey);
+            //$this->view('users.resetPassword', $data);
         }
     }
 
@@ -400,17 +397,24 @@ class UsersController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function profile() {
+        
         Auth::userAuth();
-        $data['title'] = 'Profile';
+        $this->set('title', 'Profile');
         $name = Session::name('user_name');
         $user_id = Session::name('user_id');
-        $user = $this->userModel->userData($name, $user_id);
+        $user = $this->User->userData($name, $user_id);
 
-        $data['user'] = $user;
-        if (Session::existed('email')) {
-            Session::clear('email');
+        if (isset($_SESSION['email'])) {
+            Session::set('danger', "Verify Your account firstly <a href='" . URL . "/users/confirm'>Confirm Now</a>");
+            Redirect::to('users/confirm');
+        } else
+         {
+            $this->set('user', $user);
+            if (Session::existed('email')) {
+                Session::clear('email');
+            }
         }
-        $this->view('users.profile', $data);
+        //$this->view('users.profile', $data);
     }
 
     /* >>>>>>>>>>>>>>>>>>>> */
@@ -419,10 +423,11 @@ class UsersController extends Controller {
 
     public function edit($id) {
         Auth::userAuth();
-        $data['title'] = 'Edit Profile';
-        $data['user'] = $this->userModel->show($id);
-        if ($data['user'] && is_numeric($id)) {
-            $this->view('users.edit', $data);
+        $this->set('title', 'Edit Profile');
+        $this->set('user', $this->User->show($id));
+        $user = $this->User->show($id);
+        if ($user && is_numeric($id)) {
+            //$this->view('users.edit', $data);
         } else {
             Session::set('danger', 'This id not found');
             Redirect::to('users');

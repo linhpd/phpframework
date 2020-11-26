@@ -2,7 +2,7 @@
 
 <?php 
 
-    new Session();
+    //new Session();
     
     Session::danger("danger");
     Session::success("success");

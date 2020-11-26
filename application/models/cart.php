@@ -1,7 +1,7 @@
 <?php 
 
     class Cart extends Controller{
-        private $db;
+        //private $db;
 
 //        public function __construct(){
 //            $this = new Database();

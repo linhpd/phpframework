@@ -1,6 +1,9 @@
 <?php
 require_once ROOTDIR.'\application\helpers\Session.php';
 require_once ROOTDIR.'\application\helpers\Auth.php';
+require_once ROOTDIR.'\application\helpers\redirect.php';
+require_once ROOTDIR.'\application\helpers\email.php';
+require_once ROOTDIR.'\application\helpers\csrf.php';
 class Controller {
 
     protected $_model;
@@ -9,12 +12,13 @@ class Controller {
     protected $_template;
 
     function __construct($model, $controller, $action) {
-        new Session();
+        //echo 'new controller';
         $this->_controller = $controller;
         $this->_action = $action;
         $this->_model = $model;
 
-
+        session_start();
+        var_dump($_SESSION);
         $this->$model = new $model;
         $this->_template = new Template($controller, $action);
     }

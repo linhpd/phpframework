@@ -20,7 +20,6 @@ class Auth{
         }
     }
 
-
     public static function  userGuest(){
         if(!isset($_SESSION['user_id'])){
             return true;

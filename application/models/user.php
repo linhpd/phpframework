@@ -52,6 +52,11 @@
             $this->execute();
         }
         
+        public function confirm($email){
+            $this->query("UPDATE users SET verified = '1', active = '1' WHERE email=:email");
+            $this->bind(':email', $email);
+            $this->execute();
+        }
 
         public function notVerified($email){
             $this->query("SELECT * FROM users WHERE email =:email");

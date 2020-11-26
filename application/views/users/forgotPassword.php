@@ -1,11 +1,11 @@
-<?php require_once ROOT ."/views/inc/header.php" ?>
+<?php //require_once ROOT ."/views/inc/header.php" ?>
     <div class="  mt-4">
         <div class="row">
             <div class="col-10 col-md-8 m-auto">
             <?php
-            new Session();
+            //new Session();
             Session::success("check");
-            echo  isset($data['err']) ?  '<div class="text-danger mt-2">'.$data['err'].'</div>' : '' 
+            echo  isset($err) ?  '<div class="text-danger mt-2">'.$err.'</div>' : '' 
              ?>
             <h5 class='text-center m-4'>Type Your Email</h5>
             <form method="POST" action='<?php echo URL ?>/users/forgotPassword'>

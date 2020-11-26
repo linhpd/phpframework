@@ -3,7 +3,7 @@
 class Session{
 
     public static function  start(){
-        session_start();
+            session_start();
     }
     public static function  get($name){
         echo $_SESSION[$name];

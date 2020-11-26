@@ -2,10 +2,10 @@
 
     class ManufacturesController extends Controller {
         private $manufactureModel;
-        public function __construct(){
-            new Session;
-            $this->manufactureModel = $this->model('Manufacture');
-        }
+//        public function __construct(){
+//            new Session;
+//            $this->manufactureModel = $this->model('Manufacture');
+//        }
 
 
         /*>>>>>>>>>>>>>>>>>>>>*/

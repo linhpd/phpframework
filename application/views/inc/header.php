@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?php echo URL ?>/css/jquery.fancybox.min.css">
     <link rel="stylesheet" href="<?php echo URL ?>/css/css.css">
 
-    <title><?php echo $title ?></title>
+    <title><?php echo $title?></title>
     
 </head>
 <body>
@@ -34,8 +34,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URL ?>/users/login">Login</a>
                 </li>
-            <?php  }else{ 
-              ?>
+            <?php  }else{ ?>
+                <?php if(Session::existed('user_cart')){?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URL ?>/carts">Cart<i class="fa fa-shopping-cart"></i>
                         <span class="badge badge-danger ml-0" style='border-radius:50%'>
@@ -43,16 +43,17 @@
                         </span>
                     </a>
                 </li>
+                <?php }?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URL ?>/carts/orders">My Orders</a>
                 </li>
-                <li class="nav-item dropdown user">
-                    <a class="nav-link dropdown-toggle "  id="dropdown01" data-toggle="dropdown"><?php Session::get('user_name')?> <img style='height:30px;width:30px;border-radius:50%' src="<?php echo URL . '/uploads/'?>/<?php echo Session::get('user_img') ?>" alt=""></a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="<?php echo URL ?>/users/profile">Profile</a>
-                        <a class="dropdown-item" href="<?php echo URL ?>/users/logout">Logout</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo URL ?>/users/profile">Profile</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo URL ?>/users/logout">Logout</a>
+                </li>
+                
             <?php  }
 
             if(Session::existed('email')){ ?>

@@ -1,10 +1,10 @@
 
-<?php require_once ROOT ."/views/inc/header.php" ?>
+<?php //require_once ROOT ."/views/inc/header.php" ?>
         <div class=" ">
             <div class="row">
                 <div class="col-12 col-md-8  m-auto">
                 <?php 
-                new Session();
+                //new Session();
                 ?>
                 
                 <div class= 'text-center mt-3'>
@@ -21,7 +21,7 @@
                             <ul class="list-group">
                                 <li class="list-group-item"><strong>ID: </strong><?php Session::get('user_id') ?></li>
                                 <li class="list-group-item"><strong>Name: </strong><?php Session::get('user_name') ?></li>
-                                <li class="list-group-item"><strong>Email: </strong><?php echo $data['user']->email ?></li>
+                                <li class="list-group-item"><strong>Email: </strong><?php echo $user->email ?></li>
                                 <li class="list-group-item"><strong>Social: </strong> 
                                     <i style='color:#3b5998;padding:5px' class="fa fa-facebook-square fa-2x"></i>
                                     <i style='color:#1da1f2;padding:5px' class="fa fa-twitter-square fa-2x"></i>
@@ -36,4 +36,4 @@
             </div>
         </div>
 
-<?php require_once ROOT ."/views/inc/footer.php" ?>
+<?php //require_once ROOT ."/views/inc/footer.php" ?>

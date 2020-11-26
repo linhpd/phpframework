@@ -3,29 +3,33 @@
     class HomesController extends Controller {
 
 
-        private $categoryModel;
-        private $manufactureModel;
-        private $productModel;
+//        private $categoryModel;
+//        private $manufactureModel;
+//        private $productModel;
 
         /*>>>>>>>>>>>>>>>>>>>>*/
         #<--->  construct <--->#
         /*<<<<<<<<<<<<<<<<<<<<*/
-        public function __construct(){
-            new Session;
-            $this->categoryModel = $this->model('Category');
-            $this->manufactureModel = $this->model('Manufacture');
-            $this->productModel = $this->model('Product');
-        }
+//        public function __construct(){
+//            //new Session;
+//            $this->categoryModel = $this->model('Category');
+//            $this->manufactureModel = $this->model('Manufacture');
+//            $this->productModel = $this->model('Product');
+//        }
        
         /*>>>>>>>>>>>>>>>>>>>>*/
         #<--->   index    <--->#
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function index(){
-            $data['title'] = 'Home';
-            $data['categories'] = $this->categoryModel->getAllCat(1);
-            $data['manufactures'] = $this->manufactureModel->getAllMan(1);
-            $data['products'] = $this->productModel->getAllPro(1);
+            $this->set('title', 'Home');
+            $this->categoryModel = $this->model('Category');
+            $this->manufactureModel = $this->model('Manufacture');
+            $this->productModel = $this->model('Product');
+            $this->set('categories', $this->categoryModel->getAllCat(1));
+            $this->set('manufactures', $this->manufactureModel->getAllMan(1));
+            $this->set('products', $this->productModel->getAllPro(1));
             $this->view('front.index', $data);
+            Redirect::to('front/index');
         }
 
 
