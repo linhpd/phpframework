@@ -1,6 +1,6 @@
 
 <?php// require_once ROOT ."/views/inc/adminHeader.php" ?>
-<?php// require_once ROOT ."/views/inc/sidebar.php" ?>
+<?php require_once ROOTDIR ."/application/views/inc/sidebar.php" ?>
 <div class="">
             <div class="row">
                 <div class="col-8  m-auto">

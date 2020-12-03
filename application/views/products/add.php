@@ -1,5 +1,5 @@
 <?php// "../views/inc/adminHeader.php" ?>
-<?php// "../views/inc/sidebar.php" ?>
+<?php require_once ROOTDIR. "/application/views/inc/sidebar.php" ?>
         <div class=" ">
             <div class="row">
                 <div >
@@ -31,7 +31,7 @@
                                 <div">
                                     <div class="custom-file">
                                         <input name='image' type="file">
-                                        <label  for="inputGroupFile01">Choose image</label>
+                                        <label  for="inputGroupFile01"></label>
                                     </div>
                                 </div>
                                 <small><?php echo  isset($errImg) ?  '<div class="text-danger">'. $errImg.'</div>' : '' ?></small>
@@ -80,7 +80,7 @@
                                     <?php echo  isset( $errDes) ?  '<di>'. $errDes.'</div>' : '' ?>
                                 </div>
                                 <div class="form-group">
-                                <input  name="csrf" value="<?php //new Csrf();// echo Csrf::get()?>">
+                                <input  name="csrf" value="<?php new Csrf(); echo Csrf::get()?>">
                                 <a href='<?php echo URL ?>/products' >
                                     <i ></i>
                                     Go Back

@@ -13,21 +13,21 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle"  id="dropdown02" data-toggle="dropdown">Categories</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown02">
-                    <a class="dropdown-item" href="<?php echo URL ?>/categories">All Categories</a>
+                    <a class="dropdown-item" href="<?php echo URL ?>/categories/all">All Categories</a>
                     <a class="dropdown-item" href="<?php echo URL ?>/categories/add">Add Category</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle"  id="dropdown02" data-toggle="dropdown">Manufature</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown02">
-                    <a class="dropdown-item" href="<?php echo URL ?>/manufactures">All Manufatures</a>
+                    <a class="dropdown-item" href="<?php echo URL ?>/manufactures/all">All Manufatures</a>
                     <a class="dropdown-item" href="<?php echo URL ?>/manufactures/add">Add Manufature</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle"  id="dropdown02" data-toggle="dropdown">Products</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown02">
-                    <a class="dropdown-item" href="<?php echo URL ?>/products">All Products</a>
+                    <a class="dropdown-item" href="<?php echo URL ?>/products/all">All Products</a>
                     <a class="dropdown-item" href="<?php echo URL ?>/products/add">Add Product</a>
                 </div>
             </li>
@@ -42,4 +42,4 @@
     </nav>
     <div class="container all">
 
-    <?php require_once ROOT ."/views/inc/messages.php" ?>
+    <?php require_once ROOTDIR ."/application/views/inc/messages.php" ?>

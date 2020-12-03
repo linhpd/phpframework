@@ -7,12 +7,6 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         private $adminModel;
         private $vkey ;
-//        public function __construct(){
-//            
-//            
-//            $this->adminModel = $this->model('Admin');
-//        }
-
 
         /*>>>>>>>>>>>>>>>>>>>>*/
         #<--->   login    <--->#

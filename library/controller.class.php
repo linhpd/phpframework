@@ -18,7 +18,6 @@ class Controller {
         $this->_model = $model;
 
         session_start();
-        var_dump($_SESSION);
         $this->$model = new $model;
         $this->_template = new Template($controller, $action);
     }

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?php echo URL ?>/css/jquery.fancybox.min.css">
     <link rel="stylesheet" href="<?php echo URL ?>/css/css.css">
 
-    <title><?php echo $title ?></title>
+    <title><?php echo $title?></title>
     
 </head>
 <body>

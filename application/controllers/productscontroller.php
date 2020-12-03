@@ -2,9 +2,7 @@
 
 class ProductsController extends Controller {
 
-    private $productModel;
-    private $categoryModel;
-    private $manufactureModel;
+    
     public $error;
 
 //        public function __construct(){
@@ -33,15 +31,16 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function show($id) {
-        //Auth::adminAuth();
-        $data['product'] = $this->productModel->show($id);
-        $data['title'] = $data['product']->name;
-        $data['gallary'] = $this->productModel->getGallary($id);
-        if ($data['product'] && is_numeric($id)) {
-            $this->view('products.show', $data);
+        Auth::adminAuth();
+        $product = $this->Product->show($id);
+        $this->set('product', $this->Product->show($id));
+        $this->set('title', $product->name);
+        $this->set('gallary', $this->Product->getGallary($id));
+        if ($product && is_numeric($id)) {
+            //$this->view('products.show', $data);
         } else {
-            // Session::set('danger', 'This id not found');
-            //Redirect::to('products');
+            Session::set('danger', 'This id not found');
+            Redirect::to('products/all');
         }
     }
 
@@ -51,10 +50,10 @@ class ProductsController extends Controller {
 
     public function add() {
 
-        //Auth::adminAuth();
-        //Csrf::CsrfToken();
-        $this->categoryModel = $this->model('Category');
-        $this->manufactureModel = $this->model('Manufacture');
+        Auth::adminAuth();
+        Csrf::CsrfToken();
+        //$this->categoryModel = $this->model('Category');
+        //$this->manufactureModel = $this->model('Manufacture');
 
         $this->set('title', 'Add Product');
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['addProduct']) {
@@ -64,7 +63,7 @@ class ProductsController extends Controller {
             $price = $_POST['price'];
             $color = $_POST['color'];
             $size = $_POST['size'];
-            $user = 4;
+            $user = Session::name('admin_id');
             $description = $_POST['description'];
             //var_dump($_FILES);
             $pro_img = $_FILES['image']['name'];
@@ -119,16 +118,16 @@ class ProductsController extends Controller {
                 move_uploaded_file($pro_tmp, $uploaddir . $pro_img);
 
                 $this->Product->add($name, $description, $user, $cat, $man, $pro_img, $price, $size, $color);
-                //Session::set('success', 'New product added successfully');
-                //Redirect::to('products');
+                Session::set('success', 'New product added successfully');
+                Redirect::to('products/all');
             } else {
-                $this->set('cat', $this->categoryModel->getAllCat());
-                $this->set('man', $this->manufactureModel->getAllMan());
+                $this->set('cat', $this->Product->categoryModel->getAllCat());
+                $this->set('man', $this->Product->manufactureModel->getAllMan());
                 //$this->view('products.add', $data);
             }
         } else {
-            $this->set('cat', $this->categoryModel->getAllCat());
-            $this->set('man', $this->manufactureModel->getAllMan());
+            $this->set('cat', $this->Product->categoryModel->getAllCat());
+            $this->set('man', $this->Product->manufactureModel->getAllMan());
             //$this->view('products.add',$data);
         }
     }
@@ -138,13 +137,13 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function edit($id) {
-        //Auth::adminAuth();
+        Auth::adminAuth();
         $this->categoryModel = $this->model('Category');
         $this->manufactureModel = $this->model('Manufacture');
         $data['product'] = 'Edit Product';
         $this->set('product', $this->Product->show($id));
-        $this->set('man', $this->manufactureModel->getAllMan());
-        $this->set('cat', $this->categoryModel->getAllCat());
+        $this->set('man', $this->Product->manufactureModel->getAllMan());
+        $this->set('cat', $this->Product->categoryModel->getAllCat());
 //            $data['product'] = $this->productModel->show($id);
 //            $data['man'] = $this->manufactureModel->getAllMan();
 //            $data['cat'] = $this->categoryModel->getAllCat();
@@ -165,8 +164,8 @@ class ProductsController extends Controller {
     public function update($id) {
 
 
-        $this->categoryModel = $this->model('Category');
-        $this->manufactureModel = $this->model('Manufacture');
+        //$this->categoryModel = $this->model('Category');
+        //$this->manufactureModel = $this->model('Manufacture');
         $this->set('title', 'Edit Product');
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['editProduct']) {
             $name = $_POST['name'];
@@ -225,20 +224,20 @@ class ProductsController extends Controller {
                 move_uploaded_file($pro_tmp, $uploaddir . $pro_img);
 
                 $this->Product->update($id, $name, $description, $user, $pro_img, $cat, $man, $price, $size, $color);
-                //Session::set('success', 'Product edited successfully');
-                //Redirect::to('products');
+                Session::set('success', 'Product edited successfully');
+                Redirect::to('products');
             } else {
                 $this->set('product', $this->Product->show($id));
-                $this->set('cat', $this->categoryModel->getAllCat());
-                $this->set('man', $this->manufactureModel->getAllMan());
+                $this->set('cat', $this->Product->categoryModel->getAllCat());
+                $this->set('man', $this->Product->manufactureModel->getAllMan());
                 //$this->view('products.edit', $data);
                 //$redict = new Redirect();
                 //$redict->to('edit');
             }
         } else {
             $this->set('product', $this->Product->show($id));
-            $this->set('cat', $this->categoryModel->getAllCat());
-            $this->set('man', $this->manufactureModel->getAllMan());
+            $this->set('cat', $this->Product->categoryModel->getAllCat());
+            $this->set('man', $this->Product->manufactureModel->getAllMan());
             //$this->view('products.edit',$data);
         }
     }
@@ -248,9 +247,9 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function activate($id) {
-        //Auth::adminAuth();
+        Auth::adminAuth();
         $activate = $this->Product->activate($id);
-        //Session::set('success', 'Item has been activated');
+        Session::set('success', 'Item has been activated');
         if ($activate) {
             //Redirect::to('products');
         }
@@ -261,11 +260,11 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function inActivate($id) {
-        //Auth::adminAuth();
+        Auth::adminAuth();
         $inActivate = $this->Product->inActivate($id);
         if ($inActivate) {
-            //Session::set('success', 'Item has been inActivated');
-            //Redirect::to('products');
+            Session::set('success', 'Item has been inActivated');
+            Redirect::to('products');
         }
     }
 
@@ -274,9 +273,9 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function delete($id) {
-        //Auth::adminAuth();
-        //Csrf::CsrfToken();
-        //Session::set('success', 'Item has been deleted');
+        Auth::adminAuth();
+        Csrf::CsrfToken();
+        Session::set('success', 'Item has been deleted');
         $delete = $this->Prooduct->delete($id);
         if ($delete) {
             //Redirect::to('products');
@@ -288,7 +287,7 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function upload_images($id) {
-        // Auth::adminAuth();
+        Auth::adminAuth();
         $pro_img = $_FILES['file']['name'];
         $pro_tmp = $_FILES['file']['tmp_name'];
         if (!empty($pro_img)) {
@@ -318,9 +317,9 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function deleteGallaryImage($image_id, $pro_id, $name) {
-        //Auth::adminAuth();
+        Auth::adminAuth();
         $image = dirname(ROOT) . '\public\uploads\\' . $pro_id . '\\' . $name;
-        //Session::set('success', 'Image has been deleted');
+        Session::set('success', 'Image has been deleted');
         $delete = $this->productModel->deleteGallaryImage($image_id);
         unlink($image);
         if ($delete) {
@@ -333,8 +332,8 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<<<< */
 
     public function deleteGallary($id) {
-        //Auth::adminAuth();
-        //Session::set('success', 'Gallary has been deleted');
+        Auth::adminAuth();
+        Session::set('success', 'Gallary has been deleted');
         $delete = $this->productModel->deleteGallary($id);
         $img_dir = dirname(ROOT) . '\public\uploads\\' . $id;
         $images = scandir($img_dir);
@@ -355,7 +354,7 @@ class ProductsController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function search() {
-        //Auth::adminAuth();
+        Auth::adminAuth();
         $this->set('title', 'All Products');
         $searched = $_POST['search'];
         $results = $this->productModel->search($searched);

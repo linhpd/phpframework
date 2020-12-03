@@ -21,7 +21,7 @@ class Template {
         extract($this->variables);
         if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminHeader.php')) {
             include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminHeader.php');
-            include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'sidebar.php');
+            
         } else {
             include (ROOTDIR . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'header.php');
         }

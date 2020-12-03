@@ -11,11 +11,11 @@
         /*>>>>>>>>>>>>>>>>>>>>*/
         #<--->   index    <--->#
         /*<<<<<<<<<<<<<<<<<<<<*/
-        public function index(){
+        public function all(){
             Auth::adminAuth();
-            $data['title'] = 'All Brands';
-            $data['manufactures'] = $this->manufactureModel->getAllMan();
-            $this->view('manufactures.all', $data);
+            $this->set('title', 'All Brands');
+            $this->set('manufactures', $this->Manufacture->getAllMan());
+            //$this->view('manufactures.all', $data);
         }
 
 
@@ -24,11 +24,11 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function search(){
             Auth::adminAuth();
-            $data['title'] = 'All Brands';
+            $this('title', 'All Brands');
             $searched = $_POST['search'];
-            $results = $this->manufactureModel->search($searched);
-            $data['manufactures'] = $results;
-            $this->view('manufactures.search', $data);
+            $results = $this->Manufacture->search($searched);
+            $this->set('manufactures', $results);
+            //$this->view('manufactures.search', $data);
             
         }
 
@@ -38,13 +38,14 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function show($id){
             Auth::adminAuth();
-            $data['manufacture'] = $this->manufactureModel->show($id);
-            $data['title'] = $data['manufacture']->man_name;
-            if($data['manufacture'] && is_numeric($id)){
-                $this->view('manufactures.show', $data);
+            $this->set('manufacture', $this->Manufacture->show($id));
+            $manufacture = $this->Manufacture->show($id);
+            $this->set('title', $manufacture->man_name);
+            if($manufacture && is_numeric($id)){
+                //$this->view('manufactures.show', $data);
             }else {
                 Session::set('danger', 'This id not found');
-                Redirect::to('manufactures');
+                Redirect::to('manufactures/all');
             }
         }
 
@@ -55,30 +56,33 @@
         public function add(){
             Auth::adminAuth();
             Csrf::CsrfToken();
-            $data['title'] = 'Add Brand';
+            $this('title', 'Add Brand');
             if($_SERVER['REQUEST_METHOD']=='POST' && $_POST['addManufacture']){
                 $man_name = $_POST['manufacture'];
                 $man_user = Session::name('admin_id');
                 $description = $_POST['description'];
 
                 if (strlen($man_name) < 3) {
-                    $data['errMan'] = 'manufacture name must not be less than 3 characters';
+                    $error['errMan'] = 'manufacture name must not be less than 3 characters';
+                    $this->set('errMan', 'manufacture name must not be less than 3 characters');
                 }elseif($this->manufactureModel->findManName($man_name) > 0) {
                     $data['errMan'] = 'This name already exist choose anthor one';
+                    $this->set('errMan', 'This name already exist choose anthor one');
                 }
                 if (strlen($description) < 5) {
-                    $data['errDes'] = 'manufacture description must not be less than 5 characters';
+                    $error['errDes'] = 'manufacture description must not be less than 5 characters';
+                    $this->set('errDes', 'manufacture description must not be less than 5 characters');
                 }
 
-                if(empty($data['errMan']) && empty($data['errDes'])){
-                    $this->manufactureModel->add($man_name,$man_user,$description);
+                if(empty($error['errMan']) && empty($error['errDes'])){
+                    $this->Manufaction->add($man_name,$man_user,$description);
                     Session::set('success', 'New manufacture added successfully');
-                    Redirect::to('manufactures');
+                    Redirect::to('manufactures/all');
                 }else {
-                    $this->view('manufactures.add', $data);
+                    //$this->view('manufactures.add', $data);
                 }
             }else {
-                $this->view('manufactures.add',$data);
+                //$this->view('manufactures.add',$data);
             }
         }
 
@@ -88,13 +92,14 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function edit($id){
             Auth::adminAuth();
-            $data['title'] = 'Edit Brand';
-            $data['manufacture'] = $this->manufactureModel->show($id);
-            if($data['manufacture'] && is_numeric($id)){
-                $this->view('manufactures.edit', $data);
+            $this->set('title', 'Edit Brand');
+            $manufacture = $this->Manufacture->show($id);
+            $this->set('manufacture', $manufacture);
+            if($manufacture && is_numeric($id)){
+                //$this->view('manufactures.edit', $data);
             }else {
                 Session::set('danger', 'This id not found');
-                Redirect::to('manufactures');
+                Redirect::to('manufactures/all');
             }
         }
 
@@ -105,7 +110,7 @@
         public function update($id){
             Auth::adminAuth();
             Csrf::CsrfToken();
-            $data['title'] = 'Edit Brand';
+            $this->set('title', 'Edit Brand');
             if($_SERVER['REQUEST_METHOD']=='POST' && $_POST['editManufacture']){
                 $man_name = $_POST['manufacture'];
                 $man_id = $_POST['man_id'];
@@ -113,26 +118,29 @@
                 $man_user = Session::name('admin_id');
 
                 if (strlen($man_name) < 3) {
-                    $data['errMan'] = 'manufacture name must not be less than 3 characters';
-                }elseif($this->manufactureModel->findManName($man_name,$man_id) > 0) {
-                    $data['errMan'] = 'This name already exist choose anthor one';
+                    $error['errMan'] = 'manufacture name must not be less than 3 characters';
+                    $this->set('errMan', $error['errMan']);
+                }elseif($this->Manufacture->findManName($man_name,$man_id) > 0) {
+                    $error['errMan'] = 'This name already exist choose anthor one';
+                    $this->set('errMan', $error['errMan']);
                 }
 
                 if (strlen($description) < 5) {
-                    $data['errDes'] = 'manufacture description must not be less than 5 characters';
+                    $error['errDes'] = 'manufacture description must not be less than 5 characters';
+                    $this->set('errDes', $error['errDes']);
                 }
 
-                if(empty($data['errMan']) && empty($data['errDes'])){
-                    $this->manufactureModel->update($id, $man_name,$description);
+                if(empty($error['errMan']) && empty($error['errDes'])){
+                    $this->Manufacture->update($id, $man_name,$description);
                     Session::set('success', 'manufacture has been edited successfully');
-                    Redirect::to('manufactures');
+                    Redirect::to('manufactures/all');
                 }else {
-                    $data['manufacture'] = $this->manufactureModel->show($id);
-                    $this->view('manufactures.edit', $data);
+                    $this->set('manufacture', $this->Manufacture->show($id));
+                    //$this->view('manufactures.edit', $data);
                 }
 
             }else {
-                Redirect::to('manufactures');
+                Redirect::to('manufactures/all');
             }
         }
 
@@ -143,10 +151,10 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function activate($id){
             Auth::adminAuth();
-            $activate =  $this->manufactureModel->activate($id);
+            $activate =  $this->Manufacture->activate($id);
             Session::set('success', 'Item has been activated');
             if($activate){
-                Redirect::to('manufactures');
+                Redirect::to('manufactures/all');
             }
         }
 
@@ -156,10 +164,10 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function inActivate($id){
             Auth::adminAuth();
-            $inActivate =  $this->manufactureModel->inActivate($id);
+            $inActivate =  $this->Manufaceture->inActivate($id);
             if($inActivate){
                 Session::set('success', 'Item has been inActivated');
-                Redirect::to('manufactures');
+                Redirect::to('manufactures/all');
             }
         }
 
@@ -171,9 +179,9 @@
             Auth::adminAuth();
             Csrf::CsrfToken();
             Session::set('success', 'Item has been deleted');
-            $delete =  $this->manufactureModel->delete($id);
+            $delete =  $this->Manufacture->delete($id);
             if($delete){
-                Redirect::to('manufactures');
+                Redirect::to('manufactures/all');
             }
         }
 

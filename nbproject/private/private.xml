@@ -3,12 +3,55 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/phpframework/application/models/page.php</file>
-            <file>file:/D:/xampp/htdocs/phpframework/library/shared.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/categoriescontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/sqlquery.class.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/helpers/redirect.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/inc/footer.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/manufactures/add.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/controller.class.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/inc/slider.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/helpers/email.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/inc/sidebar.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/helpers/csrf.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/home/details.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/models/admin.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/models/home.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/manufacturescontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/helpers/session.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/adminscontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/manufactures/edit.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/inflection.class.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/models/order.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/admins/adminHeader.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/models/cart.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/inc/messages.php</file>
             <file>file:/D:/xampp/htdocs/phpframework/library/model.class.php</file>
-            <file>file:/D:/xampp/htdocs/phpframework/application/models/product.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/sqlquery1.class.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/inc/adminFooter.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/home/index.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/home/proManufacture.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/homecontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/pagescontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/template.class.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/inc/header.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/html.class.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/shared.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/Database.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/manufactures/show.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/admins/adminFooter.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/product1scontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/inc/adminHeader.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/cartscontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/cache.class.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/userscontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/manufactures/all.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/controllers/orderscontroller.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/helpers/auth.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/manufactures/search.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/home/proCategory.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/library/bootstrap.php</file>
+            <file>file:/D:/xampp/htdocs/phpframework/application/views/inc/header1.php</file>
             <file>file:/D:/xampp/htdocs/phpframework/application/controllers/productscontroller.php</file>
-            <file>file:/D:/xampp/htdocs/phpframework/application/models/item.php</file>
         </group>
     </open-files>
 </project-private>

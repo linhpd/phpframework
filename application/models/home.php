@@ -11,6 +11,18 @@
  *
  * @author Inspiron 7559
  */
-class Home extends SQLQuery{
+class Home extends Model {
+
     //put your code here
+    public $categoryModel;
+    public $manufactureModel;
+    public $productModel;
+
+    public function __construct() {
+        parent::__construct();
+        $this->categoryModel=$this->model('Category');
+        $this->manufactureModel = $this->model('Manufacture');
+        $this->productModel = $this->model('Product');
+    }
+
 }

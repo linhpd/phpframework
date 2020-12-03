@@ -1,35 +1,24 @@
 <?php 
 
-    class Carts extends Controller {
-        private $cartModel;
-        private $orderModel;
-//        public function __construct(){
-//            new Session;
-//            $this->cartModel = $this->model('Cart');
-//            $this->orderModel = $this->model('Order');
-//        }
-
-
-
+    class CartsController extends Controller {
 
         /*>>>>>>>>>>>>>>>>>>>>*/
         #<--->   index    <--->#
         /*<<<<<<<<<<<<<<<<<<<<*/
-        public function index(){
+        public function cart(){
             Auth::userAuth();
             $this->set('title', 'Cart');
             $cartItems = 0;
-            $data['cart']=$this->cartModel->getAllCart();
-            $this->set('cart', $this->cartModel->getAllCart());
-            if($data['cart']){
-                foreach ($data['cart'] as $cart) {
+            $cart=$this->Cart->getAllCart();
+            $this->set('cart', $this->Cart->getAllCart());
+            if($cart){
+                foreach ($cart as $cart) {
                     $cartItems = $cartItems +  $cart->qty;
                 }
             }else {
                 $cartItems = 0;
             }
             Session::set('user_cart', $cartItems );
-            $this->view('front.cart',$data);
         }
 
 
@@ -61,12 +50,12 @@
         public function add($pro_id,$price){
             Auth::userAuth();
             $user_id = Session::name('user_id');
-            if($this->cartModel->findCartPro($pro_id,$user_id) > 0){
-                $this->cartModel->addOne($pro_id,$user_id);
-                Redirect::to('carts');
+            if($this->Cart->findCartPro($pro_id,$user_id) > 0){
+                $this->Cart->addOne($pro_id,$user_id);
+                Redirect::to('carts/cart');
             }else{
-                $this->cartModel->addnew($pro_id,$user_id,$price);
-                Redirect::to('carts');
+                $this->Cart->addnew($pro_id,$user_id,$price);
+                Redirect::to('carts/cart');
             }
         }
 
@@ -82,7 +71,7 @@
                 if ($qty < 1 && empty($qty)) {
                     Redirect::to('carts');
                 }else {
-                    $this->cartModel->updateQty($id,$qty);
+                    $this->Cart->updateQty($id,$qty);
                     Session::set('success', 'Qty has been updated');
                     Redirect::to('carts');
                 }
@@ -97,7 +86,7 @@
             Auth::userAuth();
             Csrf::CsrfToken();
             Session::set('success', 'Item has been deleted');
-            $delete =  $this->cartModel->delete($id);
+            $delete =  $this->Cart->delete($id);
             if($delete){
                 Redirect::to('carts');
             }
@@ -110,7 +99,7 @@
             Auth::userAuth();
             Csrf::CsrfToken();
             Session::set('success', 'All Item has been deleted');
-            $delete =  $this->cartModel->clear();
+            $delete =  $this->Cart->clear();
             if($delete){
                 Redirect::to('carts');
             }

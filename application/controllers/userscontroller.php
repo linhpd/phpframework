@@ -5,8 +5,6 @@ class UsersController extends Controller {
     #<---> construct  <--->#
     /* <<<<<<<<<<<<<<<<<<<< */
 
-    private $userModel;
-    private $cartModel;
     private $vkey;
 
 //        public function __construct(){
@@ -138,6 +136,8 @@ class UsersController extends Controller {
         }
     }
 
+
+
     public function login() {
         Auth::userGuest();
         $this->set('title', 'Login');
@@ -168,16 +168,15 @@ class UsersController extends Controller {
                         Session::set('user_id', $user->user_id);
                         Session::set('email', $email);
                         Session::set('user_name', $user->full_name);
-                        echo var_dump($_SESSION);
+                        
                         if ($this->User->notVerified($email)) {
                             Session::set('danger', "Verify Your account firstly <a href='" . URL . "/users/confirm'>Confirm Now</a>");
                             $this->set('varified', false);
                             Redirect::to('/users/confirm');
                         } else {
                             Session::clear('email');
-                            $this->cartModel = $this->model('Cart');
                             $cartItems = 0;
-                            $carts = $this->cartModel->getAllCart();
+                            $carts = $this->User->cartModel->getAllCart();
                             if ($carts) {
                                 foreach ($carts as $cart) {
                                     $cartItems = $cartItems + $cart->qty;
@@ -188,6 +187,11 @@ class UsersController extends Controller {
                             Session::set('user_img', $user->image);
                             Session::set('user_cart', $cartItems);
                             Session::set('user_name', $user->full_name);
+
+                            if ($user->admin == 1) {
+                                Session::set('admin_name', $user->full_name);
+                                Session::set('admin_id', $user->user_id);
+                            }
                             Redirect::to('users/profile');
                         }
                     } else {
@@ -246,6 +250,7 @@ class UsersController extends Controller {
                 $this->User->avatar($id, $pro_img);
                 Session::set('user_img', $pro_img);
                 Session::set('success', 'Your avatar has been uploaded successfully');
+
                 Redirect::to('users/profile');
             }
         }
@@ -298,7 +303,7 @@ class UsersController extends Controller {
             $vkey = $v;
             $email = Session::name('email');
             $confirm = $this->User->selectVkey($email, $vkey);
-            
+
             $this->set('user', $this->User->selectVkey($email, $vkey));
             if ($confirm) {
                 $this->User->confirm($email);
@@ -397,7 +402,7 @@ class UsersController extends Controller {
     /* <<<<<<<<<<<<<<<<<<<< */
 
     public function profile() {
-        
+
         Auth::userAuth();
         $this->set('title', 'Profile');
         $name = Session::name('user_name');
@@ -407,8 +412,7 @@ class UsersController extends Controller {
         if (isset($_SESSION['email'])) {
             Session::set('danger', "Verify Your account firstly <a href='" . URL . "/users/confirm'>Confirm Now</a>");
             Redirect::to('users/confirm');
-        } else
-         {
+        } else {
             $this->set('user', $user);
             if (Session::existed('email')) {
                 Session::clear('email');
