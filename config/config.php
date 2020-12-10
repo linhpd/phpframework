@@ -9,4 +9,4 @@ define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 define('DB_HOST', 'localhost');
 define("ROOTDIR", dirname(dirname(__FILE__)));
-define('URL', 'http://localhost:8080/phpframework');
+define('URL', 'http://localhost:80/phpframework');

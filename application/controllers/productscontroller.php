@@ -50,8 +50,8 @@ class ProductsController extends Controller {
 
     public function add() {
 
-        Auth::adminAuth();
-        Csrf::CsrfToken();
+ //       Auth::adminAuth();
+   //     Csrf::CsrfToken();
         //$this->categoryModel = $this->model('Category');
         //$this->manufactureModel = $this->model('Manufacture');
 
@@ -63,7 +63,8 @@ class ProductsController extends Controller {
             $price = $_POST['price'];
             $color = $_POST['color'];
             $size = $_POST['size'];
-            $user = Session::name('admin_id');
+            //$user = Session::name('admin_id');
+            $user = 1;
             $description = $_POST['description'];
             //var_dump($_FILES);
             $pro_img = $_FILES['image']['name'];

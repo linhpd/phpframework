@@ -1,15 +1,13 @@
 
 </div>
-<footer class='bg-dark text-white text-center p-4'>
-    Copyrights reserverd :&copy; 2019
-</footer>
-<script src="<?php echo URL ?>/js/jquery.min.js"></script>
-<script src="<?php echo URL ?>/js/bootstrap.min.js"></script>
-<script src="<?php echo URL ?>/js/dropzone.min.js"></script>
-<script src="<?php echo URL ?>/js/jquery.fancybox.min.js"></script>
-<div class='strip'>
-
+<link rel="stylesheet" href="<?php echo URL ?>/css/footer.css">
+<div class="footer">
+	<div class="container">
+            <h2 style="margin: 0px">Thông tin liên hệ</h2>
+            <span>Hotline 0123456789</span><br>
+            <span>Email shopdientu@gmail.com</span><br><br>
+            <span>Copyright - Team DKLN</span>
 </div>
-<script src="<?php echo URL ?>/js/js.js"></script>
+</div>
 </body>
 </html>
