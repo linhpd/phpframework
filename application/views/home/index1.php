@@ -43,19 +43,11 @@
                 <hr class='bg-dark'>
             </div>
             
-            <div class="col-lg-3 col-md-4 col-sm-4 my-2">
             <?php 
-            //if($products)
-            {
-                for($i = 0; $i < count($categories); $i++){?>
-                    
-            
-                <h3 class='text-center my-4'><?php echo $categories[$i]->cat_name ?> Products </h3>
-                
-                    <?php
-                    if($products[$i]){
-                    foreach ($products[$i] as $pro) {?>
-                    
+            if($products){
+
+                foreach ($products as $pro) {?>
+                    <div class="col-lg-3 col-md-4 col-sm-4 my-2">
                         <div class="card position-relative" >
                             <span class="badge badge-success position-absolute p-1 "><?php echo $pro->price?>$</span>
                             <img style='height:200px' class="img-fluid" src="<?php echo URL ?>/uploads/<?php echo $pro->image ?>" alt="Card image cap">
@@ -64,17 +56,12 @@
                                 <a href="<?php echo URL ?>/home/details/<?php echo $pro->product_id ?>" class="btn btn-info btn-sm py-1 float-left" style="font-size:13px">Details</a>
                                 <a href="<?php echo URL ?>/carts/add/<?php echo $pro->product_id ?>/<?php echo $pro->price ?>" class="btn btn-danger btn-sm py-1 float-right" style="font-size:13px"><i class="fa fa-shopping-cart"></i></a>
                             </div>
-                        </div>        
-                <?php   }
-                    }
-                    else{
-                    ?>
-                    <p class="text-center text-danger"><span class='btn btn-sm btn-danger' style='border-radius:50%'><i class="fa fa-warning"></i></span> There is no Products</p>
-                <?php  
-                    }
-                }
-            }
-                ?>
-            </div>
+                        </div>
+                    </div>
+                <?php }
+            }else {?>
+                <p class="text-center text-danger"><span class='btn btn-sm btn-danger' style='border-radius:50%'><i class="fa fa-warning"></i></span> There is no Products</p>
+                <?php  }
+            ?>
         </div>
     </div>

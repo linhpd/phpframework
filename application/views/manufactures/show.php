@@ -32,7 +32,7 @@
             </ul>
             </div>
         </div>
-        <a href='<?php echo URL ?>/manufactures' class="btn btn-sm btn-secondary mt-2">
+        <a href='<?php echo URL ?>/manufactures/all' class="btn btn-sm btn-secondary mt-2">
             <i class="fa fa-arrow-left"></i>
             Go Back
         </a>

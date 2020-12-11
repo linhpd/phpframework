@@ -81,7 +81,7 @@
                                 </div>
                                 <div class="form-group">
                                 <input  name="csrf" value="<?php new Csrf(); echo Csrf::get()?>">
-                                <a href='<?php echo URL ?>/products' >
+                                <a href='<?php echo URL ?>/products/all' >
                                     <i ></i>
                                     Go Back
                                 </a>

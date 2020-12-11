@@ -38,9 +38,9 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function orders(){
             Auth::userAuth();
-            $data['title'] = 'Orders';
-            $data['orderDetails'] = $this->orderModel->getUserOrderDetalails(Session::name('user_id'));
-            $this->view('front.orders',$data);
+            $this->set('title', 'Orders');
+            $this->set('orderDetails', $this->Cart->orderModel->getUserOrderDetalails(Session::name('user_id')));
+            //$this->view('front.orders',$data);
         }
 
 

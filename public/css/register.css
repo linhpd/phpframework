@@ -1,0 +1,40 @@
+
+.register {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: solid 1px white;
+	border-radius: 8px;
+	width: 400px;
+	padding: 5px 12px;
+}
+
+.register h2 {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 25px;
+	text-align: center;
+	color: red;
+}
+
+.register input {
+	width: 100%;
+	border: none;
+	outline: none;
+	border-bottom: solid 1px white;
+	padding: 4px 0;
+	margin-bottom: 16px;
+	font-size: 16px;
+	background: none;
+	color: white;
+}
+
+#btn {
+	border: none;
+	cursor: pointer;
+	margin-bottom: 0;
+/*	border: solid 1px;
+	border-radius: 10px;
+	width: 150px;*/
+}

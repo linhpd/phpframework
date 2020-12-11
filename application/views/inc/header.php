@@ -18,7 +18,7 @@
 
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
             <div class="container">
-                <a class="navbar-brand" href="<?php echo URL ?>/homes/index">Market</a>
+                <a class="navbar-brand" href="<?php echo URL ?>/home/index">Market</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

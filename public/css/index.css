@@ -1,0 +1,28 @@
+.index {
+	color: white;
+}
+
+.row {
+	text-align: center;
+	margin-bottom: 50px;
+	border-bottom: solid 3px red;	
+}
+
+.col {
+	display: inline-block;
+	width: 220px;
+	height: 220px;
+	padding: 5px;
+	margin: 0 5px;	
+	transition: 0.5s;
+	cursor: pointer;
+}
+
+.col img {
+	width: 200px;
+	height: 200px;
+}
+
+.col:hover {
+	transform: translateY(-10px); 
+}

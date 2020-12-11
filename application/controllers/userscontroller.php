@@ -28,9 +28,10 @@ class UsersController extends Controller {
                 $hashedPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $password2 = $_POST['password2'];
 
-                $vkey = time();
-                $vkey = md5($vkey);
-                $vkey = str_shuffle($vkey);
+//                $vkey = time();
+//                $vkey = md5($vkey);
+//                $vkey = str_shuffle($vkey);
+                $vkey = Random::randomString();
 
                 if (empty($fullname)) {
                     $error['errName'] = 'Name Must Has Value.';
@@ -299,7 +300,9 @@ class UsersController extends Controller {
                     //$this->view('users.confirm', $data);
                 }
             }
-        } elseif ($v != null && !empty($v)) {
+        } 
+        elseif ($v != null && !empty($v)) 
+        {
             $vkey = $v;
             $email = Session::name('email');
             $confirm = $this->User->selectVkey($email, $vkey);
@@ -330,8 +333,7 @@ class UsersController extends Controller {
     public function forgotPassword($g = null) {
         Auth::userGuest();
         $this->set('title', 'Forgot Password');
-        $this->vkey = time();
-        $this->vkey = md5($this->vkey);
+        $this->vkey = Random::randomString();
         $vkey = $this->vkey = str_shuffle($this->vkey);
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if (isset($_POST['forgotPassword'])) {

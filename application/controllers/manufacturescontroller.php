@@ -1,7 +1,7 @@
 <?php 
 
     class ManufacturesController extends Controller {
-        private $manufactureModel;
+      //  private $manufactureModel;
 //        public function __construct(){
 //            new Session;
 //            $this->manufactureModel = $this->model('Manufacture');
@@ -56,7 +56,7 @@
         public function add(){
             Auth::adminAuth();
             Csrf::CsrfToken();
-            $this('title', 'Add Brand');
+            $this->set('title', 'Add Brand');
             if($_SERVER['REQUEST_METHOD']=='POST' && $_POST['addManufacture']){
                 $man_name = $_POST['manufacture'];
                 $man_user = Session::name('admin_id');
@@ -65,7 +65,7 @@
                 if (strlen($man_name) < 3) {
                     $error['errMan'] = 'manufacture name must not be less than 3 characters';
                     $this->set('errMan', 'manufacture name must not be less than 3 characters');
-                }elseif($this->manufactureModel->findManName($man_name) > 0) {
+                }elseif($this->Manufacture->findManName($man_name) > 0) {
                     $data['errMan'] = 'This name already exist choose anthor one';
                     $this->set('errMan', 'This name already exist choose anthor one');
                 }
@@ -75,7 +75,7 @@
                 }
 
                 if(empty($error['errMan']) && empty($error['errDes'])){
-                    $this->Manufaction->add($man_name,$man_user,$description);
+                    $this->Manufacture->add($man_name,$man_user,$description);
                     Session::set('success', 'New manufacture added successfully');
                     Redirect::to('manufactures/all');
                 }else {
@@ -164,7 +164,7 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function inActivate($id){
             Auth::adminAuth();
-            $inActivate =  $this->Manufaceture->inActivate($id);
+            $inActivate =  $this->Manufacture->inActivate($id);
             if($inActivate){
                 Session::set('success', 'Item has been inActivated');
                 Redirect::to('manufactures/all');

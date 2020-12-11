@@ -25,7 +25,7 @@ class Auth{
             return true;
         }else {
             Session::set('danger', 'You are already signed');
-            Redirect::to('users/profile');
+            //Redirect::to('users/profile');
         }
     }
 

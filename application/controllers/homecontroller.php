@@ -22,12 +22,18 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function index(){
             $this->set('title', 'Home');
-            //$this->categoryModel = $this->model('Category');
-            //$this->manufactureModel = $this->model('Manufacture');
-            //$this->productModel = $this->model('Product');
-            $this->set('categories', $this->Home->categoryModel->getAllCat(1));
+            $category = $this->Home->categoryModel->getAllCat(1);
+            
+            $this->set('categories', $category);
             $this->set('manufactures', $this->Home->manufactureModel->getAllMan(1));
-            $this->set('products', $this->Home->productModel->getAllPro());
+            
+            
+            for($i = 0; $i < count($category); $i++){
+                $product[$i] = $this->Home->productModel->getProByCat($category[$i]->cat_id);
+            }
+            //$product = $this->Home->productModel->getAllPro();
+            $this->set('products', $product);
+            //var_dump($product);
             
         }
 

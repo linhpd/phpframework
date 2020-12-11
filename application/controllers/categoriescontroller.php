@@ -23,7 +23,7 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function show($id){
             Auth::adminAuth();
-            $this->set('category', $this->Category->show($id));
+            $this->set('category', $category);
             $category = $this->Category->show($id);
             $this->set('title', $category->cat_name);
 

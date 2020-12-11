@@ -1,7 +1,9 @@
 
 <?php //require_once ROOT ."/views/inc/header.php" ?>
     <div class="my-4 mx-auto">
-    <?php  if($cart){ ?>
+    <?php 
+    Auth::userGuest();
+    if($cart){ ?>
         <table style='background:#ffffff' class="table">
             <thead class='thead-dark'>
                 <tr>
@@ -124,7 +126,7 @@
                 <p class="text-center text-danger"><span class='btn btn-sm btn-danger' style='border-radius:50%'><i class="fa fa-warning"></i></span> There is no items in cart</p>
             <?php  }  ?>
             </div>
-        <a href="<?php echo URL ?>/homes/index" class="btn btn-sm btn-secondary"><i class="fa fa-arrow-left"></i> Go Back</a>
+        <a href="<?php echo URL ?>/home/index" class="btn btn-sm btn-secondary"><i class="fa fa-arrow-left"></i> Go Back</a>
         
         
     </div>

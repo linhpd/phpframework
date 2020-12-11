@@ -4,6 +4,8 @@ require_once ROOTDIR.'\application\helpers\Auth.php';
 require_once ROOTDIR.'\application\helpers\redirect.php';
 require_once ROOTDIR.'\application\helpers\email.php';
 require_once ROOTDIR.'\application\helpers\csrf.php';
+require_once ROOTDIR.'\application\helpers\random.php';
+
 class Controller {
 
     protected $_model;

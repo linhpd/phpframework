@@ -9,9 +9,9 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function index(){
             Auth::adminAuth();
-            $data['title'] = 'All Orders';
-            $data['orders'] = $this->orderModel->getAllOrder();
-            $this->view('orders.all', $data);
+            $this->set('title', 'All Orders');
+            $this->set('orders', $this->orderModel->getAllOrder());
+            //$this->view('orders.all', $data);
         }
 
 
@@ -20,11 +20,12 @@
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function show($id){
             Auth::adminAuth();
-            $data['order'] = $this->orderModel->show($id);
-            $data['shipping'] = $this->orderModel->showShipping($data['order']->shipping_id);
-            $data['orderDetails'] = $this->orderModel->getAllOrderDetalails($data['order']->order_id);
-            $data['title'] = 'Order '.$data['order']->order_id;
-            $this->view('orders.show', $data);
+            $this->set('order', $this->Order->show($id));
+            $order = $this->Order->show($id);
+            $this->set('shipping', $this->orderModel->showShipping($order->shipping_id));
+            $this->set('orderDetails', $this->orderModel->getAllOrderDetalails($order->order_id));
+            $this->set('title', 'Order '.$order->order_id);
+            //$this->view('orders.show', $data);
         }
 
 
