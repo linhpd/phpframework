@@ -21,20 +21,26 @@
         #<--->   index    <--->#
         /*<<<<<<<<<<<<<<<<<<<<*/
         public function index(){
+//            $this->set('title', 'Home');
+//            $category = $this->Home->categoryModel->getAllCat(1);
+//            
+//            $this->set('categories', $category);
+//            $this->set('manufactures', $this->Home->manufactureModel->getAllMan(1));
+//            
+//            
+//            for($i = 0; $i < count($category); $i++){
+//                $product[$i] = $this->Home->productModel->getProByCat($category[$i]->cat_id);
+//            }
+//            //$product = $this->Home->productModel->getAllPro();
+//            $this->set('products', $product);
+//            //var_dump($product);
             $this->set('title', 'Home');
-            $category = $this->Home->categoryModel->getAllCat(1);
-            
-            $this->set('categories', $category);
+            //$this->categoryModel = $this->model('Category');
+            //$this->manufactureModel = $this->model('Manufacture');
+            //$this->productModel = $this->model('Product');
+            $this->set('categories', $this->Home->categoryModel->getAllCat(1));
             $this->set('manufactures', $this->Home->manufactureModel->getAllMan(1));
-            
-            
-            for($i = 0; $i < count($category); $i++){
-                $product[$i] = $this->Home->productModel->getProByCat($category[$i]->cat_id);
-            }
-            //$product = $this->Home->productModel->getAllPro();
-            $this->set('products', $product);
-            //var_dump($product);
-            
+            $this->set('products', $this->Home->productModel->getAllPro());
         }
 
 

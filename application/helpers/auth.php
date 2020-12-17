@@ -14,7 +14,8 @@ class Auth{
     public static function  userAuth(){
         if(isset($_SESSION['user_id'])){
             return true;
-        }else {
+        }
+        else{
             Session::set('danger', 'You are not authorized');
             Redirect::to('users/login');
         }

@@ -33,7 +33,7 @@
             </li>
 
             <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URL ?>/orders">Orders</a>
+                    <a class="nav-link" href="<?php echo URL ?>/orders/all">Orders</a>
                 </li>
     
         </ul>

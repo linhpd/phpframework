@@ -15,6 +15,8 @@ class Controller {
 
     function __construct($model, $controller, $action) {
         //echo 'new controller';
+        //Session::start();
+        //echo var_dump($_SESSION);
         $this->_controller = $controller;
         $this->_action = $action;
         $this->_model = $model;

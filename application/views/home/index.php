@@ -1,80 +1,51 @@
 
-<div class=" my-4 mx-auto">
-        <h3 class='text-center my-4'>Our Prouducts</h3>
-        <form action="<?php echo URL ?>/home/search" method='POST' class='d-md-none w-50 mx-auto'>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <button class="input-group-text"><i class="fa fa-search"></i></button>
+    <!-- Nội dung trang home index -->
+    <div class="content">
+        <div class="container-flex">
+            <!-- bên trái -->
+            <div class="catagories">
+                <div class="catagories-header">
+                    <img src="<?php echo URL ?>list.png">
+                    <span>Tất cả danh mục</span>
                 </div>
-                <input type="text" name='search' class="form-control" placeholder='Search'>
-            </div>
-        </form>
-    <?php require_once ROOTDIR ."/application/views/inc/slider.php" ?>
-
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-3">
-                <h5>Categories</h5>
-                <ul class="list-unstyled">
-                <?php 
-                if($categories){
-
-                    foreach ($categories as $cat) {?>
-                        <li><a href="<?php echo URL ?>/home/proCategory/<?php echo $cat->cat_id ?>"><?php echo $cat->cat_name ?></a></li>
-                    <?php }
-                }else {?>
-                        <p class="text-center text-danger"><span class='btn btn-sm btn-danger' style='border-radius:50%'><i class="fa fa-warning"></i></span> There is no categories</p>
-                        <?php  }
-                    ?>
+                <ul class="catagories-list">
+                    <li>
+                        <a href="#"><span>Samsung</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><span>Iphone</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><span>Oppo</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><span>Nokia</span></a>
+                    </li>
                 </ul>
-
-                <h5>Brands</h5>
-                <ul class="list-unstyled">
-                <?php 
-                if($manufactures){
-
-                    foreach ($manufactures as $man) {?>
-                        <li><a href="<?php echo URL ?>/home/proManufacture/<?php echo $man->man_id ?>"><?php echo $man->man_name ?></a></li>
-                    <?php }
-                }else{?>
-                    <p class="text-center text-danger"><span class='btn btn-sm btn-danger' style='border-radius:50%'><i class="fa fa-warning"></i></span> There is no Brands</p>
-                    <?php  }
-                ?>
-                </ul>
-                <hr class='bg-dark'>
             </div>
-            
-            <div class="col-lg-3 col-md-4 col-sm-4 my-2">
-            <?php 
-            //if($products)
-            {
-                for($i = 0; $i < count($categories); $i++){?>
-                    
-            
-                <h3 class='text-center my-4'><?php echo $categories[$i]->cat_name ?> Products </h3>
-                
+            <!-- bên phải -->
+            <div class="products">
+                <div class="products-list">
                     <?php
-                    if($products[$i]){
-                    foreach ($products[$i] as $pro) {?>
-                    
-                        <div class="card position-relative" >
-                            <span class="badge badge-success position-absolute p-1 "><?php echo $pro->price?>$</span>
-                            <img style='height:200px' class="img-fluid" src="<?php echo URL ?>/uploads/<?php echo $pro->image ?>" alt="Card image cap">
-                            <div class="card-body">
-                                <h6 class="card-title"><?php echo $pro->name ?></h6>
-                                <a href="<?php echo URL ?>/home/details/<?php echo $pro->product_id ?>" class="btn btn-info btn-sm py-1 float-left" style="font-size:13px">Details</a>
-                                <a href="<?php echo URL ?>/carts/add/<?php echo $pro->product_id ?>/<?php echo $pro->price ?>" class="btn btn-danger btn-sm py-1 float-right" style="font-size:13px"><i class="fa fa-shopping-cart"></i></a>
+                    if($products){
+                        foreach ($products as $pro){
+                        ?>
+                    <div class="product">
+                        <div class="product-view">
+                            <div class="product-img">
+                                <a href="<?php echo URL ?>/home/details/<?php echo $pro->product_id ?>"><img id="img-product" src="<?php echo URL ?>/uploads/<?php echo $pro->image ?>" alt=""></a>
                             </div>
-                        </div>        
-                <?php   }
-                    }
-                    else{
-                    ?>
-                    <p class="text-center text-danger"><span class='btn btn-sm btn-danger' style='border-radius:50%'><i class="fa fa-warning"></i></span> There is no Products</p>
-                <?php  
-                    }
-                }
-            }
-                ?>
+                            <div class="product-info">
+                                <div id="name-product">Samsung Note 9</div>
+                                <div id="price-product">600.000</div>
+                                <div id="btn-add-to-cart"><button>Add to cart</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php 
+                        }
+                    }?>
+                </div>
             </div>
         </div>
     </div>

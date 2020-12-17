@@ -23,4 +23,12 @@ class Email {
         mail($to, $subject, $body);
     }
 
+    public static function sendPass($vkey, $email){
+        $to = $email;
+        $body = 'Thank you for joining us your code :' . $vkey .
+                ' ' . 'Now You Can Go <a href="http://localhost:8080/phpframework/users/resetPassword/' . $vkey . '">Confirm Now</a>';
+        $subject = 'confirm';
+        
+        mail($to, $subject, $body);
+    }
 }

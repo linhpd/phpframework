@@ -311,9 +311,9 @@ class UsersController extends Controller {
             if ($confirm) {
                 $this->User->confirm($email);
                 Session::set('success', 'Your account has been confirmed');
-//                Session::set('user_id', $confirm->user_id);
-//                Session::set('user_name', $confirm->full_name);
-//                Session::set('user_img', $confirm->image);
+                Session::set('user_id', $confirm->user_id);
+                Session::set('user_name', $confirm->full_name);
+                Session::set('user_img', $confirm->image);
                 Session::clear('email');
                 Redirect::to('users/profile');
             }
@@ -340,9 +340,9 @@ class UsersController extends Controller {
                 $email = $_POST['email'];
                 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-                if ($this->userModel->forgotP($email, $vkey)) {
+                if ($this->User->forgotP($email, $vkey)) {
                     // echo $vkey;
-                    sendpass($email, $vkey);
+                    Email::sendPass($vkey, $email);
                     Session::set('success', 'please Check Your Email Inbox');
                     Redirect::to('users/forgotPassword');
                 } else {
@@ -382,7 +382,7 @@ class UsersController extends Controller {
 
                 if (empty($error['errPassword'])) {
                     if ($this->User->resetP($vkey, $hashedPassword)) {
-                        sendpass($email, $vkey);
+                        Email::sendPass($email, $vkey);
                         Session::set('danger', 'Please login with new password');
                         Redirect::to('users/login');
                     } else {
@@ -414,13 +414,14 @@ class UsersController extends Controller {
         if (isset($_SESSION['email'])) {
             Session::set('danger', "Verify Your account firstly <a href='" . URL . "/users/confirm'>Confirm Now</a>");
             Redirect::to('users/confirm');
-        } else {
+        } 
+        else 
+        {
             $this->set('user', $user);
             if (Session::existed('email')) {
                 Session::clear('email');
             }
         }
-        //$this->view('users.profile', $data);
     }
 
     /* >>>>>>>>>>>>>>>>>>>> */

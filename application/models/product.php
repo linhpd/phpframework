@@ -203,9 +203,9 @@ class Product extends Model {
         return $this->resultSet();
     }
 
-    public function deleteGallaryImage($id) {
-        $this->query("DELETE FROM gallary WHERE image_id=:image_id");
-        $this->bind(':image_id', $id);
+    public function deleteGallaryImage($name) {
+        $this->query("DELETE FROM gallary WHERE image_name=:image_name");
+        $this->bind(':image_name', $name);
         return $this->execute();
     }
 

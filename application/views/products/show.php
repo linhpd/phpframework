@@ -72,21 +72,20 @@
                         <img class='img-fluid' style='height:200px' src="<?php echo URL ?>/uploads/<?php echo $image->product_id ?>/<?php echo $image->image_name ?>" alt="" />
                     </a>
                     <div>
-                    <a href="<?php echo URL ?>/products/deleteGallaryImage/<?php echo $image->image_id?>/<?php echo $image->product_id?>/<?php echo $image->image_name?>" class="delete btn btn-sm btn-danger">Delete</a>
+                    <a href="<?php echo URL ?>/products/deleteGallaryImage/<?php echo $image->gallary_id?>/<?php echo $image->product_id?>/<?php echo $image->image_name?>" class="delete btn btn-sm btn-danger">Delete</a>
                     </div>
                 </div>
             <?php }
             }
          ?>
         </div>
-        <form 
+        <form method="POST"
             action="<?php echo URL ?>/products/upload_images/<?php echo $product->product_id ?>" 
-            class="dropzone my-2" 
-            id="myAwesomeDropzone"
-            
+            enctype="multipart/form-data"
         >
         <div class="fallback">
             <input type="file" name="file" >
+            <input type="submit" value="add" name="addGallary">
         </div>
         </form>
         <a href='<?php echo URL ?>/products/all' class="btn btn-sm btn-secondary mt-2">

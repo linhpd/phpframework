@@ -2,7 +2,6 @@
 
 class ProductsController extends Controller {
 
-    
     public $error;
 
 //        public function __construct(){
@@ -276,7 +275,7 @@ class ProductsController extends Controller {
         Auth::adminAuth();
         Csrf::CsrfToken();
         Session::set('success', 'Item has been deleted');
-        $delete = $this->Prooduct->delete($id);
+        $delete = $this->Product->delete($id);
         if ($delete) {
             //Redirect::to('products');
         }
@@ -288,27 +287,32 @@ class ProductsController extends Controller {
 
     public function upload_images($id) {
         Auth::adminAuth();
-        $pro_img = $_FILES['file']['name'];
-        $pro_tmp = $_FILES['file']['tmp_name'];
-        if (!empty($pro_img)) {
-            $this->set('product', $this->Product->show($id));
-            $uploaddir = ROOTDIR . '\public\uploads\\' . $product->product_id . '\\';
-            if (!file_exists($uploaddir)) {
-                mkdir($uploaddir);
-            }
-            $pro_img = explode('.', $pro_img);
-            $pro_img_ext = $pro_img[1];
-            $pro_img = $pro_img[0] . time() . '.' . $pro_img[1];
+        var_dump($_POST['addGallary']);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['addGallary']) {
+          
+            $pro_img = $_FILES['file']['name'];
+            $pro_tmp = $_FILES['file']['tmp_name'];
+            
+            if (!empty($pro_img)) {
+                $this->set('product', $this->Product->show($id));
+                $product= $this->Product->show($id);
+                $uploaddir = ROOTDIR . '\public\\uploads\\' . $product->product_id . '\\';
+                if (!file_exists($uploaddir)) {
+                    mkdir($uploaddir, 0777, true);
+                }
+                $pro_img = explode('.', $pro_img);
+                $pro_img_ext = $pro_img[1];
+                $pro_img = $pro_img[0] . time() . '.' . $pro_img[1];
 
-            if ($pro_img_ext != "jpg" && $pro_img_ext != "png" && $pro_img_ext != "jpeg" && $pro_img_ext != "gif") {
-                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            } else {
-                move_uploaded_file($pro_tmp, $uploaddir . $pro_img);
-                // echo $pro_img;
-                $this->Product->addGallary($id, $pro_img);
+                if ($pro_img_ext != "jpg" && $pro_img_ext != "png" && $pro_img_ext != "jpeg" && $pro_img_ext != "gif") {
+                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                } else {
+                    move_uploaded_file($pro_tmp, $uploaddir . $pro_img);
+                    // echo $pro_img;
+                    $this->Product->addGallary($id, $pro_img);
+                    Redirect::back();
+                }
             }
-        } else {
-            echo 'You must choose an image';
         }
     }
 
@@ -316,14 +320,14 @@ class ProductsController extends Controller {
     #<--->delete image<--->#
     /* <<<<<<<<<<<<<<<<<<<< */
 
-    public function deleteGallaryImage($image_id, $pro_id, $name) {
+    public function deleteGallaryImage($image_name, $pro_id, $name) {
         Auth::adminAuth();
         $image = dirname(ROOT) . '\public\uploads\\' . $pro_id . '\\' . $name;
         Session::set('success', 'Image has been deleted');
-        $delete = $this->productModel->deleteGallaryImage($image_id);
+        $delete = $this->Product->deleteGallaryImage($name);
         unlink($image);
         if ($delete) {
-            //Redirect::back();
+            Redirect::back();
         }
     }
 
@@ -334,7 +338,7 @@ class ProductsController extends Controller {
     public function deleteGallary($id) {
         Auth::adminAuth();
         Session::set('success', 'Gallary has been deleted');
-        $delete = $this->productModel->deleteGallary($id);
+        $delete = $this->Product->deleteGallary($id);
         $img_dir = dirname(ROOT) . '\public\uploads\\' . $id;
         $images = scandir($img_dir);
         foreach ($images as $image) {
@@ -345,7 +349,7 @@ class ProductsController extends Controller {
         }
 
         if ($delete) {
-            //Redirect::back();
+            Redirect::back();
         }
     }
 

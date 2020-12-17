@@ -20,4 +20,16 @@
             </div>
         </div>
     </div>
+<!--<form method="POST" action='<?php echo URL ?>/users/forgotPassword'>
+    <div class="input-form">
+        <div class="">
+            <h2 class="text-muted text-center">Forgot Password</h2>
+            <small class="text-center">Enter your email to send an email for you, then check your email to can get new password</small>
+        </div>
+        <div>
+            <input class="input-text" type="text" name="email" placeholder="Email">
+        </div>
+        <input type="submit" name='forgotPassword' value="Send" id="btn">
+    </div>
+</form>-->
 <?php //require_once ROOT ."/views/inc/footer.php" ?>
