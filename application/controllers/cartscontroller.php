@@ -10,7 +10,7 @@ class CartsController extends Controller {
         $this->set('title', 'Cart');
         $cartItems = 0;
         $cart = $this->Cart->getAllCart();
-        $this->set('cart', $this->Cart->getAllCart());
+        $this->set('cart', $cart);
         if ($cart) {
             foreach ($cart as $cart) {
                 $cartItems = $cartItems + $cart->qty;
@@ -52,11 +52,24 @@ class CartsController extends Controller {
         $user_id = Session::name('user_id');
         if ($this->Cart->findCartPro($pro_id, $user_id) > 0) {
             $this->Cart->addOne($pro_id, $user_id);
-            Redirect::to('carts/cart');
+            
         } else {
             $this->Cart->addnew($pro_id, $user_id, $price);
-            Redirect::to('carts/cart');
+            
         }
+        $cart = $this->Cart->getAllCart();
+        $this->set('cart', $cart);
+        $cartItems = 0;
+        if ($cart) {
+            foreach ($cart as $cart) {
+                $cartItems = $cartItems + $cart->qty;
+            }
+        } else {
+            $cartItems = 0;
+        }
+        Session::set('user_cart', $cartItems);
+        
+        echo Session::get('user_cart');
     }
 
     /* >>>>>>>>>>>>>>>>>>>> */
@@ -85,12 +98,22 @@ class CartsController extends Controller {
 
     public function delete($id) {
         Auth::userAuth();
-        Csrf::CsrfToken();
+        //Csrf::CsrfToken();
         Session::set('success', 'Item has been deleted');
         $delete = $this->Cart->delete($id);
-        if ($delete) {
-            Redirect::to('carts');
+        $cart = $this->Cart->getAllCart();
+        $this->set('cart', $cart);
+        $cartItems = 0;
+        if ($cart) {
+            foreach ($cart as $cart) {
+                $cartItems = $cartItems + $cart->qty;
+            }
+        } else {
+            $cartItems = 0;
         }
+        Session::set('user_cart', $cartItems);
+        $file = ROOTDIR . DS . 'application' . DS . 'views' . DS . "carts" . DS . "cart". '.php';
+        echo file_get_contents($file);
     }
 
     /* >>>>>>>>>>>>>>>>>>>> */

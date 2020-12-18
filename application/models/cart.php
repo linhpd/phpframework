@@ -15,7 +15,7 @@ class Cart extends Model {
 
     public function getAllCart() {
 
-        $this->query("SELECT cart.*,products.name as pro_name ,
+        $this->query("SELECT cart.*,products.name as pro_name,products.image as pro_image ,
             products.price as price FROM cart 
             INNER JOIN users ON cart.user = users.user_id
             INNER JOIN products ON cart.product= products.product_id

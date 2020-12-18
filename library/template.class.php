@@ -19,20 +19,21 @@ class Template {
     /** Display Template * */
     function render() {
         extract($this->variables);
-        if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminHeader.php')) {
-            include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminHeader.php');
-            
-        } else {
-            include (ROOTDIR . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'header.php');
-        }
+        if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . $this->_action . '.php')) {
+            if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminHeader.php')) {
+                include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminHeader.php');
+            } else {
+                include (ROOTDIR . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'header.php');
+            }
 
 
-        include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . $this->_action . '.php');
+            include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . $this->_action . '.php');
 
-        if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminFooter.php')) {
-            include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminFooter.php');
-        } else {
-            include (ROOT . DS . 'application' . DS .  'views' . DS . 'inc' . DS . 'footer.php');
+            if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminFooter.php')) {
+                include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminFooter.php');
+            } else {
+                include (ROOT . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'footer.php');
+            }
         }
     }
 
