@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 11, 2019 at 11:45 AM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.3.3
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th12 07, 2020 lúc 03:18 PM
+-- Phiên bản máy phục vụ: 10.4.14-MariaDB
+-- Phiên bản PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `market`
+-- Cơ sở dữ liệu: `market`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
+-- Cấu trúc bảng cho bảng `cart`
 --
 
 CREATE TABLE `cart` (
@@ -34,13 +33,13 @@ CREATE TABLE `cart` (
   `price` varchar(255) NOT NULL,
   `product` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
 CREATE TABLE `categories` (
@@ -48,21 +47,22 @@ CREATE TABLE `categories` (
   `cat_name` varchar(255) NOT NULL,
   `cat_user` int(11) NOT NULL,
   `description` text NOT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `active` tinyint(4) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`cat_id`, `cat_name`, `cat_user`, `description`, `active`, `created_at`) VALUES
-(1, 'Phones', 4, 'sdcfdvdfvdffvdf', 1, '2019-06-11 09:42:03');
+(1, 'Phones', 4, 'sdcfdvdfvdffvdf', 1, '2019-06-11 09:42:03'),
+(2, 'LAPTOP', 4, 'abc', 2, '2020-12-07 14:01:47');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `c_order`
+-- Cấu trúc bảng cho bảng `c_order`
 --
 
 CREATE TABLE `c_order` (
@@ -71,12 +71,12 @@ CREATE TABLE `c_order` (
   `shipping_id` int(11) NOT NULL,
   `payment_id` int(11) NOT NULL,
   `order_total` varchar(255) NOT NULL,
-  `order_status` tinyint(2) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `order_status` tinyint(2) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `c_order`
+-- Đang đổ dữ liệu cho bảng `c_order`
 --
 
 INSERT INTO `c_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `order_total`, `order_status`, `created_at`) VALUES
@@ -86,7 +86,7 @@ INSERT INTO `c_order` (`order_id`, `customer_id`, `shipping_id`, `payment_id`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `c_order_details`
+-- Cấu trúc bảng cho bảng `c_order_details`
 --
 
 CREATE TABLE `c_order_details` (
@@ -97,24 +97,24 @@ CREATE TABLE `c_order_details` (
   `product_price` varchar(255) NOT NULL,
   `product_qty` varchar(255) NOT NULL,
   `user` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gallary`
+-- Cấu trúc bảng cho bảng `gallary`
 --
 
 CREATE TABLE `gallary` (
   `gallary_id` int(11) NOT NULL,
   `image_name` varchar(255) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `gallary`
+-- Đang đổ dữ liệu cho bảng `gallary`
 --
 
 INSERT INTO `gallary` (`gallary_id`, `image_name`, `product_id`, `created_at`) VALUES
@@ -128,20 +128,20 @@ INSERT INTO `gallary` (`gallary_id`, `image_name`, `product_id`, `created_at`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `manufactures`
+-- Cấu trúc bảng cho bảng `manufactures`
 --
 
 CREATE TABLE `manufactures` (
   `man_id` int(11) NOT NULL,
   `man_name` varchar(255) NOT NULL,
   `man_user` int(11) NOT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT '0',
+  `active` tinyint(4) NOT NULL DEFAULT 0,
   `description` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `manufactures`
+-- Đang đổ dữ liệu cho bảng `manufactures`
 --
 
 INSERT INTO `manufactures` (`man_id`, `man_name`, `man_user`, `active`, `description`, `created_at`) VALUES
@@ -152,19 +152,19 @@ INSERT INTO `manufactures` (`man_id`, `man_name`, `man_user`, `active`, `descrip
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- Cấu trúc bảng cho bảng `payment`
 --
 
 CREATE TABLE `payment` (
   `Payment_id` int(11) NOT NULL,
   `payment_method` varchar(50) NOT NULL,
-  `payment_status` tinyint(2) NOT NULL DEFAULT '0',
+  `payment_status` tinyint(2) NOT NULL DEFAULT 0,
   `payment_shipping` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `payment`
+-- Đang đổ dữ liệu cho bảng `payment`
 --
 
 INSERT INTO `payment` (`Payment_id`, `payment_method`, `payment_status`, `payment_shipping`, `created_at`) VALUES
@@ -174,7 +174,7 @@ INSERT INTO `payment` (`Payment_id`, `payment_method`, `payment_status`, `paymen
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Cấu trúc bảng cho bảng `products`
 --
 
 CREATE TABLE `products` (
@@ -184,16 +184,16 @@ CREATE TABLE `products` (
   `cat` int(11) NOT NULL,
   `man` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `active` tinyint(2) NOT NULL DEFAULT '0',
+  `active` tinyint(2) NOT NULL DEFAULT 0,
   `image` varchar(255) NOT NULL,
   `color` varchar(255) NOT NULL,
   `size` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 --
--- Dumping data for table `products`
+-- Đang đổ dữ liệu cho bảng `products`
 --
 
 INSERT INTO `products` (`product_id`, `name`, `description`, `cat`, `man`, `user`, `active`, `image`, `color`, `size`, `price`, `created_at`) VALUES
@@ -202,7 +202,7 @@ INSERT INTO `products` (`product_id`, `name`, `description`, `cat`, `man`, `user
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shipping`
+-- Cấu trúc bảng cho bảng `shipping`
 --
 
 CREATE TABLE `shipping` (
@@ -212,11 +212,11 @@ CREATE TABLE `shipping` (
   `mobile` varchar(30) NOT NULL,
   `address` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `shipping`
+-- Đang đổ dữ liệu cho bảng `shipping`
 --
 
 INSERT INTO `shipping` (`shipping_id`, `full_name`, `email`, `mobile`, `address`, `city`, `created_at`) VALUES
@@ -227,7 +227,7 @@ INSERT INTO `shipping` (`shipping_id`, `full_name`, `email`, `mobile`, `address`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `users`
 --
 
 CREATE TABLE `users` (
@@ -236,16 +236,16 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `active` tinyint(4) NOT NULL DEFAULT '0',
+  `active` tinyint(4) NOT NULL DEFAULT 0,
   `vkey` varchar(255) NOT NULL,
-  `token_expire` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `verified` tinyint(4) NOT NULL DEFAULT '0',
-  `admin` tinyint(4) NOT NULL DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `token_expire` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `verified` tinyint(4) NOT NULL DEFAULT 0,
+  `admin` tinyint(4) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Đang đổ dữ liệu cho bảng `users`
 --
 
 INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `image`, `active`, `vkey`, `token_expire`, `verified`, `admin`, `created_at`) VALUES
@@ -254,24 +254,24 @@ INSERT INTO `users` (`user_id`, `full_name`, `email`, `password`, `image`, `acti
 (4, 'will smith', 'will123@gmail.com', '$2y$10$2qL3BvyXxqac0mnEtcxrCOIc1nK.jCCKb1Njes/Vs/XWvLNIHy9wq', '031560246033.png', 1, '62f473020aa5e20fec24064da17de737', '2019-06-11 09:41:08', 1, 1, '2019-06-11 09:33:42');
 
 --
--- Indexes for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Indexes for table `cart`
+-- Chỉ mục cho bảng `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`cart_id`);
 
 --
--- Indexes for table `categories`
+-- Chỉ mục cho bảng `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`cat_id`),
   ADD KEY `cat_user` (`cat_user`);
 
 --
--- Indexes for table `c_order`
+-- Chỉ mục cho bảng `c_order`
 --
 ALTER TABLE `c_order`
   ADD PRIMARY KEY (`order_id`),
@@ -280,7 +280,7 @@ ALTER TABLE `c_order`
   ADD KEY `o_user` (`customer_id`);
 
 --
--- Indexes for table `c_order_details`
+-- Chỉ mục cho bảng `c_order_details`
 --
 ALTER TABLE `c_order_details`
   ADD PRIMARY KEY (`id`),
@@ -288,28 +288,28 @@ ALTER TABLE `c_order_details`
   ADD KEY `d_product` (`product_id`);
 
 --
--- Indexes for table `gallary`
+-- Chỉ mục cho bảng `gallary`
 --
 ALTER TABLE `gallary`
   ADD PRIMARY KEY (`gallary_id`),
   ADD KEY `g_pro` (`product_id`);
 
 --
--- Indexes for table `manufactures`
+-- Chỉ mục cho bảng `manufactures`
 --
 ALTER TABLE `manufactures`
   ADD PRIMARY KEY (`man_id`),
   ADD KEY `man_user` (`man_user`);
 
 --
--- Indexes for table `payment`
+-- Chỉ mục cho bảng `payment`
 --
 ALTER TABLE `payment`
   ADD PRIMARY KEY (`Payment_id`),
   ADD KEY `pay_shipping` (`payment_shipping`);
 
 --
--- Indexes for table `products`
+-- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`),
@@ -318,93 +318,93 @@ ALTER TABLE `products`
   ADD KEY `p_cat` (`cat`);
 
 --
--- Indexes for table `shipping`
+-- Chỉ mục cho bảng `shipping`
 --
 ALTER TABLE `shipping`
   ADD PRIMARY KEY (`shipping_id`);
 
 --
--- Indexes for table `users`
+-- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT cho các bảng đã đổ
 --
 
 --
--- AUTO_INCREMENT for table `cart`
+-- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
   MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT cho bảng `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `c_order`
+-- AUTO_INCREMENT cho bảng `c_order`
 --
 ALTER TABLE `c_order`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `c_order_details`
+-- AUTO_INCREMENT cho bảng `c_order_details`
 --
 ALTER TABLE `c_order_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `gallary`
+-- AUTO_INCREMENT cho bảng `gallary`
 --
 ALTER TABLE `gallary`
   MODIFY `gallary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `manufactures`
+-- AUTO_INCREMENT cho bảng `manufactures`
 --
 ALTER TABLE `manufactures`
   MODIFY `man_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `payment`
+-- AUTO_INCREMENT cho bảng `payment`
 --
 ALTER TABLE `payment`
   MODIFY `Payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `shipping`
+-- AUTO_INCREMENT cho bảng `shipping`
 --
 ALTER TABLE `shipping`
   MODIFY `shipping_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- Các ràng buộc cho các bảng đã đổ
 --
 
 --
--- Constraints for table `categories`
+-- Các ràng buộc cho bảng `categories`
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `cat_user` FOREIGN KEY (`cat_user`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `c_order`
+-- Các ràng buộc cho bảng `c_order`
 --
 ALTER TABLE `c_order`
   ADD CONSTRAINT `o_payment` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`Payment_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -412,32 +412,32 @@ ALTER TABLE `c_order`
   ADD CONSTRAINT `o_user` FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `c_order_details`
+-- Các ràng buộc cho bảng `c_order_details`
 --
 ALTER TABLE `c_order_details`
   ADD CONSTRAINT `d_order` FOREIGN KEY (`order_id`) REFERENCES `c_order` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `d_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `gallary`
+-- Các ràng buộc cho bảng `gallary`
 --
 ALTER TABLE `gallary`
   ADD CONSTRAINT `g_pro` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `manufactures`
+-- Các ràng buộc cho bảng `manufactures`
 --
 ALTER TABLE `manufactures`
   ADD CONSTRAINT `man_user` FOREIGN KEY (`man_user`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `payment`
+-- Các ràng buộc cho bảng `payment`
 --
 ALTER TABLE `payment`
   ADD CONSTRAINT `pay_shipping` FOREIGN KEY (`payment_shipping`) REFERENCES `shipping` (`shipping_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `products`
+-- Các ràng buộc cho bảng `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `p_cat` FOREIGN KEY (`cat`) REFERENCES `categories` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE,
