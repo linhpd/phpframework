@@ -4,10 +4,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-        <link rel="stylesheet" href="<?php echo URL ?>/css/header.css">
-
         <title><?php echo $title ?></title>
         <link href="<?php echo URL ?>/public/css/reset.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo URL ?>/public/css/style.css" rel="stylesheet" type="text/css" />
@@ -30,7 +26,8 @@
                                     <span id="card-element" class="badge badge-danger ml-0" style='border-radius:50%'>
                                         <?php Session::get('user_cart') ?>
                                     </span></a>
-   
+                            </li>
+                        <?php } ?>
                         <li><a class="nav-link" href="<?php echo URL ?>/carts/orders">Đơn hàng</a></li>
                         <li><a class="nav-link" href="<?php echo URL ?>/users/profile">Hồ sơ</a></li>
                         <li><a class="nav-link" href="<?php echo URL ?>/users/logout">Đăng suất</a></li>
@@ -42,14 +39,13 @@
                             <a class="nav-link" href="<?php echo URL ?>/users/confirm"></a>
                         </li>-->
 
-                    <?php }}
+                    <?php }
                     ?>
                     <li><a href="#">Thông báo</a></li>
                     <li><a href="#">Trợ giúp</a></li>
                     </ul>
                 </div>
-                </div>
-            </div>  
+            </div>
             <div class = "header-content">
                 <div class = "logo">
                     <a href = "<?php echo URL ?>/home/index">SHOPDKLN</a>
@@ -65,10 +61,4 @@
                 </div>
 
             </div>
-        <div class="container all">
-            <?php //require_once ROOT ."/views/inc/messages.php" ?>
-            <!-- <?php
-            if (isset($_SESSION['admin_id'])) {
-                //require_once ROOTDIR . "/application/views/inc/sidebar.php";
-            }?>
- -->
+        </div>
