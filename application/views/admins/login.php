@@ -1,6 +1,6 @@
 
 <?php// require_once ROOT ."/views/inc/adminHeader.php" ?>
-<div class="">
+<div class="content">
 
             <div class="row">
                 <div class="col-8  m-auto">

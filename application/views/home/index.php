@@ -13,7 +13,7 @@
                 if ($categories) {
                     foreach ($categories as $cat) {
                         ?>
-                        <li><a href="<?php echo URL ?>/home/proCategory/<?php echo $cat->cat_id ?>"><span><?php echo $cat->cat_name ?></span></a></li>
+                        <li><a href="<?php echo URL ?>/home/proCategory/<?php echo $cat->cat_id ?>"><?php echo $cat->cat_name ?></a></li>
                         <?php
                     }
                 }

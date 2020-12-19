@@ -1,19 +1,15 @@
 
 <?php //require_once ROOT ."/views/inc/adminHeader.php" ?>
-<?php require_once ROOTDIR ."/application/views/inc/sidebar.php" ?>
-        <div class=" ">
-            <div class="row">
-                <div class="col-10 col-md-6  m-auto">
+<?php //require_once ROOTDIR ."/application/views/inc/sidebar.php" ?>
+        <div class="content">
+            <div class="profile">
 
-                <div class="card my-4">
                 
-                        <div class="card-header">
-                            <h5 class='text-muted text-center'>Edit Manufacture</h5>
-                        </div>
-                        <div class="card-body">
+                            <h2 class='signup-heading'>Edit Manufacture</h2>
+                        <div class="admin-edit">
                             <form action="<?php echo URL?>/manufactures/update/<?php echo $manufacture->man_id ?>" method="POST">
     
-                                <div class="form-group">
+                                <div class="">
                                     <input 
                                         value="<?php echo $manufacture->man_name ?>"
                                         type="text" 
@@ -24,8 +20,8 @@
                                     <input type="hidden" name="man_id" value="<?php echo $manufacture->man_id ?>">
                                     <?php echo  isset($errMan) ?  '<div class="invalid-feedback">'.$errMan.'</div>' : '' ?>
                                 </div>
-                                <div class="from-group mb-2">
-                                    <textarea 
+                                <div class="">
+                                    <textarea class="admin-textarea"
                                         name="description" 
                                         class="form-control <?php echo  isset($errDes) ?  'is-invalid' : '' ?>"
                                     ><?php echo $manufacture->description ?>
@@ -33,20 +29,24 @@
                                     <?php echo  isset($errDes) ?  '<div class="invalid-feedback">'.$errDes.'</div>' : '' ?>
                                 </div>
 
-                                <div class="form-group">
+                                <div class="">
                                 <input type="hidden" name="csrf" value="<?php new Csrf(); echo Csrf::get()?>">
-                                    <a href='<?php echo URL ?>/manufactures/all' class="btn btn-sm btn-secondary">
-                                        <i class="fa fa-arrow-left"></i>
+                                    <button class="admin-button"><a href='<?php echo URL ?>/manufactures/all' class="">
+                                    
                                         Go Back
-                                    </a>
-                                    <input type="submit" name='editManufacture' value='Edit' class="btn btn-success btn-sm">
+                                    </a></button>
+                                    <input style="width: 30%;cursor: pointer;" type="submit" name='editManufacture' value='Edit' class="">
                                 </div>
 
                             </form>
                         </div>
-                    </div>
                 </div>
-            </div>
         </div>
-
+<style>
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
 <?php //require_once ROOT ."/views/inc/adminFooter.php" ?>

@@ -20,8 +20,8 @@ class Template {
     function render() {
         extract($this->variables);
         if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . $this->_action . '.php')) {
-            if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminHeader.php')) {
-                include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminHeader.php');
+            if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'header.php')) {
+                include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'header.php');
             } else {
                 include (ROOTDIR . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'header.php');
             }
@@ -29,8 +29,8 @@ class Template {
 
             include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . $this->_action . '.php');
 
-            if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminFooter.php')) {
-                include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'adminFooter.php');
+            if (file_exists(ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'footer.php')) {
+                include (ROOTDIR . DS . 'application' . DS . 'views' . DS . $this->_controller . DS . 'footer.php');
             } else {
                 include (ROOT . DS . 'application' . DS . 'views' . DS . 'inc' . DS . 'footer.php');
             }

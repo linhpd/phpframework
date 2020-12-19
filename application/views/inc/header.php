@@ -14,22 +14,23 @@
         <div class="header">
             <div class="header-top">
                 <div class="navbar-link">
+                    <ul>
                     <?php if (!Session::existed('user_id')) { ?>
-                        <a href="<?php echo URL ?>/users/login">Đăng nhập</a>
-                        <a href="<?php echo URL ?>/users/register">Đăng ký</a>
+                        <li><a href="<?php echo URL ?>/users/login">Đăng nhập</a></li>
+                        <li><a href="<?php echo URL ?>/users/register">Đăng ký</a></li>
                     <?php } else { ?>
                         <?php if (Session::existed('user_cart')) { ?>
-                            <div class = "cart">
+                            <li class = "cart">
                                 <a href = "<?php echo URL ?>/carts/cart">
                                     <img src = "<?php echo URL?>/public/uploads/cart.png" alt = "cart logo"> 
                                     <span id="card-element" class="badge badge-danger ml-0" style='border-radius:50%'>
                                         <?php Session::get('user_cart') ?>
                                     </span></a>
-                            </div>
+                            </li>
                         <?php } ?>
-                        <a class="nav-link" href="<?php echo URL ?>/carts/orders">Đơn hàng</a>
-                        <a class="nav-link" href="<?php echo URL ?>/users/profile">Hồ sơ</a>
-                        <a class="nav-link" href="<?php echo URL ?>/users/logout">Đăng suất</a>
+                        <li><a class="nav-link" href="<?php echo URL ?>/carts/orders">Đơn hàng</a></li>
+                        <li><a class="nav-link" href="<?php echo URL ?>/users/profile">Hồ sơ</a></li>
+                        <li><a class="nav-link" href="<?php echo URL ?>/users/logout">Đăng suất</a></li>
                         <?php
                     }
                     if (Session::existed('email')) {
@@ -39,13 +40,15 @@
                         </li>-->
 
                     <?php }
-                    ?><a href="#">Thông báo</a>
-                    <a href="#">Trợ giúp</a>
+                    ?>
+                    <li><a href="#">Thông báo</a></li>
+                    <li><a href="#">Trợ giúp</a></li>
+                    </ul>
                 </div>
             </div>
             <div class = "header-content">
                 <div class = "logo">
-                    <a href = "index.php"><img src = "<?php echo PATH_URL_IMG ?>logo.png" alt = "shop logo"></a>
+                    <a href = "<?php echo URL ?>/home/index">SHOPDKLN</a>
                 </div>
                 <div class = "search">
                     <div class = "search-input">

@@ -11,7 +11,7 @@
               </form>
               <p class="signup-already">
                   <span>Bạn chưa có tài khoản ?</span>
-                  <a href="#" class="signup-login-link">Đăng ký</a>
+                  <a href="<?php echo URL?>/users/register" class="signup-login-link">Đăng ký</a>
               </p>
           </div>
       </div>

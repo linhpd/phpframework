@@ -1,16 +1,17 @@
 
 <?php //require_once ROOT ."/views/inc/adminHeader.php" ?>
-<?php require_once ROOTDIR ."/application/views/inc/sidebar.php" ?>
-    <div class="  text-center mt-4">
+<?php //require_once ROOTDIR ."/application/views/inc/sidebar.php" ?>
+    <div class="content">
+        <div class="profile" style="max-width: 800px">
+        <!-- <h5>Manufactures Management</h5>
+        <input type="text" id='search_man' class="form-control w-50 mx-auto" placeholder="Search"> -->
+        <h2 class="signup-heading">All Product</h2>
+            <span style="width: 15%; line-height: 24px"><a href="<?php echo URL ?>/manufactures/add">Add new manfacture</a></span>
+            <span>Search</span>
+            <form style="display: inline-block;" action=""><input type="text" placeholder="enter a product"></form>
 
-        <h5>Manufactures Management</h5>
-        <input type="text" id='search_man' class="form-control w-50 mx-auto" placeholder="Search">
-   
-        <span class="float-right m-3">
-            <a href="<?php echo URL ?>/manufactures/add">Add new man +</a>
-        </span>
         <?php if($manufactures ){  ?>
-        <table class="table table-dark table-responsive-md searched">
+        <table class="all-product">
             <thead>
                 <tr>
                     <th>Series</th>
@@ -40,11 +41,11 @@
                                 </a>
                             </td>
                         <td>
-                        <form class='d-inline' action="<?php echo URL ?>/manufactures/delete/<?php echo $cat->cat_id?>" method='GET'>
+                        <form style="display: inline-block;"class='' action="<?php echo URL ?>/manufactures/delete/<?php echo $cat->cat_id?>" method='GET'>
                             <input type="hidden" name="csrf" value="<?php new Csrf(); echo Csrf::get()?>">
-                            <button class='btn btn-danger delete  btn-sm py-0' type="submit" ><i class="fa fa-trash"></i></button>
+                            <button type="submit" >Delete</button>
                         </form>
-                            <a href="<?php echo URL ?>/manufactures/edit/<?php echo $man->man_id?>" class="btn btn-info btn-sm py-0"><i class="fa fa-edit"></i></a>
+                            <button ><a href="<?php echo URL ?>/manufactures/edit/<?php echo $man->man_id?>" class="">Edit</a></button>
                         </td>
                     </tr>
                 <?php } 
@@ -55,7 +56,14 @@
         <?php }else{?>
                     <p class="text-center text-danger"><span class='btn btn-sm btn-danger' style='border-radius:50%'><i class="fa fa-warning"></i></span> There is no Brands</p>
                     <?php  } ?>
+        </div>          
     </div>
-
+<style>
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
 
 <?php //require_once ROOT ."/views/inc/adminFooter.php" ?>
