@@ -42,12 +42,12 @@
                             <a class="nav-link" href="<?php echo URL ?>/users/confirm"></a>
                         </li>-->
 
-                    <?php }
+                    <?php }}
                     ?>
                     <li><a href="#">Thông báo</a></li>
                     <li><a href="#">Trợ giúp</a></li>
                     </ul>
-                    </div>
+                </div>
                 </div>
             </div>  
             <div class = "header-content">
@@ -65,11 +65,10 @@
                 </div>
 
             </div>
-        </div>
-        </div>
         <div class="container all">
             <?php //require_once ROOT ."/views/inc/messages.php" ?>
-            <?php
+            <!-- <?php
             if (isset($_SESSION['admin_id'])) {
-                require_once ROOTDIR . "/application/views/inc/sidebar.php";
+                //require_once ROOTDIR . "/application/views/inc/sidebar.php";
             }?>
+ -->
