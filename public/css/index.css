@@ -26,3 +26,8 @@
 .col:hover {
 	transform: translateY(-10px); 
 }
+.catagories_header{
+
+    color: #009933;font-size: 30px;background-color: #CCCC00;
+
+}
