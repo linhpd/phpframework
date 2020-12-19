@@ -34,7 +34,7 @@
                             <td>
                                 <!--<form class='d-inline' >-->
                                     <!--<input type="hidden" name="csrf" value="<?php new Csrf(); echo Csrf::get() ?>">-->
-                                    <button class='btn-delete' onclick="deletePro('<?php echo URL ?>', '<?php echo $cart->cart_id ?>')"><img src="../../public/img/delete.png"></button>
+                                    <button class='' onclick="deletePro('<?php echo URL ?>', '<?php echo $cart->cart_id ?>')">Delete</button>
                                 <!--</form>-->
                             </td>
                         </tr>

@@ -112,6 +112,10 @@
             $product= $this->Home->productModel->show($id);
             $this->set('title', $product->name);
             $this->set('gallary', $this->Home->productModel->getGallary($id));
+            $this->set('image', $product->image);
+            $this->set('price', $product->price);
+            $this->set('description', $product->description);
+            $this->set('id', $product->product_id);
             if($product && is_numeric($id)){
                // $this->view('front.details', $data);
             }else {
